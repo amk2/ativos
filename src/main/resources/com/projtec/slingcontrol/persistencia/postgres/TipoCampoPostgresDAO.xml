@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java.util.Map>
+    <java.lang.Object>
+     <java.lang.String>obterTipoCampoPorID</java.lang.String>
+     <java.lang.String>     
+     select  tipos_campo_id, tipos_campo_descricao from tipos_campo where tipos_campo_id=?     
+     </java.lang.String> 
+    </java.lang.Object>        
+   <java.lang.Object>
+     <java.lang.String>adicionar</java.lang.String>
+      <java.lang.String>
+          insert into tipos_campo(tipos_campo_descricao) values(?)
+       </java.lang.String>
+   </java.lang.Object>
+
+   <java.lang.Object>
+     <java.lang.String>idAtual</java.lang.String>
+      <java.lang.String>
+          select currval('tipos_campo_tipos_campo_id_seq')
+       </java.lang.String>
+   </java.lang.Object>
+   
+   <java.lang.Object>
+     <java.lang.String>excluir</java.lang.String>
+      <java.lang.String>
+         delete from tipos_campo where tipos_campo_id = ?
+       </java.lang.String>
+   </java.lang.Object>
+   
+   
+    <java.lang.Object>
+     <java.lang.String>alterar</java.lang.String>
+      <java.lang.String>
+          update tipos_campo set tipos_campo_descricao=?  where tipos_campo_id = ?
+       </java.lang.String>
+   </java.lang.Object>
+   
+   
+    <java.lang.Object>
+     <java.lang.String>pesquisar</java.lang.String>
+      <java.lang.String>
+          select tipos_campo_id, tipos_campo_descricao from tipos_campo 
+          where lower(tipos_campo_descricao) like ? order by tipos_campo_descricao   
+       </java.lang.String>
+   </java.lang.Object>
+   
+   
+   
+   <java.lang.Object>
+     <java.lang.String>obterTodos</java.lang.String>
+      <java.lang.String>
+          select tipos_campo_id, tipos_campo_descricao from tipos_campo order by tipos_campo_descricao
+       </java.lang.String>
+   </java.lang.Object>
+   
+   
+   
+  
+   
+</java.util.Map>
+
+

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java.util.Map>
+
+    <java.lang.Object>
+     <java.lang.String>obterTodosNomes</java.lang.String>
+     <java.lang.String>     
+         SELECT 
+         	locais_id,
+         	locais_nome,
+         	locais_descricao,
+         	locais_latitude,
+			locais_longitude,
+			locais_localizacao_x,
+			locais_localizacao_y,
+			locais_identificacao,
+			estoque_id
+         FROM
+         	 locais
+         ORDER BY
+         	 locais_nome;   
+     </java.lang.String> 
+     
+    </java.lang.Object> 
+    
+    
+    
+    <java.lang.Object>
+     <java.lang.String>incluir</java.lang.String>
+     <java.lang.String>     
+             INSERT INTO locais
+			(
+			  layout_id,
+			  locais_nome,
+			  locais_descricao,
+			  locais_latitude,
+			  locais_longitude,
+			  locais_localizacao_x,
+			  locais_localizacao_y,
+			  locais_identificacao,
+			  estoque_id
+			) 
+			VALUES (
+			  ?,
+			  ?,
+			  ?,
+			  ?,
+			  ?,
+			  ?,
+			  ?,
+			  ?,
+			  ?
+			);      
+     </java.lang.String> 
+     
+    </java.lang.Object>
+    
+    
+   <java.lang.Object>
+     <java.lang.String>idAtual</java.lang.String>
+      <java.lang.String>
+          select currval('locais_locais_id_seq')
+       </java.lang.String>
+   </java.lang.Object>
+  
+   <java.lang.Object>
+     <java.lang.String>excluir</java.lang.String>
+      <java.lang.String>
+          DELETE FROM locais  WHERE locais_id = ?
+       </java.lang.String>
+   </java.lang.Object>
+   
+   
+    <java.lang.Object>
+     <java.lang.String>alterar</java.lang.String>
+      <java.lang.String>
+		UPDATE locais SET 
+          	layout_id = ?,
+          	locais_nome = ?,
+          	locais_descricao = ?,
+          	locais_latitude = ?,
+			locais_longitude = ?,
+			locais_localizacao_x = ?,
+			locais_localizacao_y = ?,
+			locais_identificacao = ?,
+            estoque_id = ?
+        WHERE 
+          	locais_id=?  
+       </java.lang.String>
+   </java.lang.Object>
+   
+   
+       <java.lang.Object>
+     <java.lang.String>obterLocalPorID</java.lang.String>
+      <java.lang.String>
+            SELECT 
+				locais_id,
+			   	layout_id,
+			   	locais_nome,
+			   	locais_descricao,
+			   	locais_latitude,
+			  	locais_longitude,
+			  	locais_localizacao_x,
+			  	locais_localizacao_y,
+			  	locais_identificacao,
+			  	estoque_id
+			FROM 
+			  	locais    
+			WHERE 
+				locais_id=? 
+       </java.lang.String>
+   </java.lang.Object>
+   
+   <java.lang.Object>
+    <java.lang.String>obterTodos</java.lang.String> 
+  <java.lang.String>
+  			SELECT 
+  				locais_id,
+  				layout_id,
+  				locais_nome,
+  				locais_descricao,
+  				locais_latitude,
+			  	locais_longitude,
+			  	locais_localizacao_x,
+			  	locais_localizacao_y,
+			  	locais_identificacao,
+			  	estoque_id
+			 FROM
+			 	locais 
+			 ORDER BY
+			 	locais_nome; 
+   </java.lang.String> 
+   </java.lang.Object>
+
+ <java.lang.Object>
+    <java.lang.String>obterLocaisPorEstoque</java.lang.String> 
+  <java.lang.String>
+  			SELECT 
+  				locais_id,
+  				layout_id,
+  				locais_nome,
+  				locais_descricao,
+  				locais_latitude,
+			  	locais_longitude,
+			  	locais_localizacao_x,
+			  	locais_localizacao_y,
+			  	locais_identificacao
+			 FROM
+			 	locais 
+			 WHERE estoque_id = ?
+			 ORDER BY
+			 	locais_nome; 
+   </java.lang.String> 
+   </java.lang.Object>
+
+</java.util.Map>
+
+

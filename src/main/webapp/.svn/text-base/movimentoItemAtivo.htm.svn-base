@@ -1,0 +1,21 @@
+#if ($mesg)
+  <div id="msgDiv"> $mesg </div>
+#end
+
+  #writeFormCrud($movimentoItemDeAtivoForm)
+ 
+ <br>
+
+<p align="center">  
+  <SPAN style="width: 90%;">
+#if($showGrid)  
+ $grid
+#end  
+  </SPAN>
+</p>
+ 
+ 
+ 
+ 
+ 
+ 

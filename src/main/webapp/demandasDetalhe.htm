@@ -1,0 +1,69 @@
+<head>
+	<script src="$context/resources/js/jquery-1.4.2.min.js" type="text/javascript"></script>
+</head>
+<body>
+#if($mensagemSucesso && $mensagemSucesso ne "" )  
+	<div id="panelMensagemSucesso" style="color:blue; font-size:10pt; border: blue 1px solid; width:99%; text-align: center; height: 20px; font-weight: bold;" >
+		<p> $mensagemSucesso </p>
+	</div>
+#end		
+<div align="center"> 
+   <!--  a href='javascript:history.go(-1)' > <img src="$context/resources/images/btnLimpar.png"   alt="Retornar" /> </a-->
+    <div id="detalhes"  align="left">
+	   <b>Demanda:</b> $objDemanda.layout.nome <br />
+	   <b>Status:</b> $objDemanda.statusDemanda.descricao <br />
+	   <b>Tipo:</b> $objDemanda.tipoDemanda.descricao<br />
+	   <b>Layout:</b> $objDemanda.layout.nome<br />
+	</div>
+	 
+    
+    #foreach( $key in $mapListGridView.keySet() )
+       
+       <table   style="width: 99.4%;"  class="blue2">
+             <thead>
+        #set( $grupo = $mapListGridView.get($key))
+        <tr>         
+          <th colspan='$grupo.nomes.size()'   >$mapListGridView.get($key).titulo</th>
+        </tr>        
+        <tr>
+    
+        #foreach ($keyNm in $grupo.nomes.keySet())
+          
+             <th >
+               <!-- $keyNm --> $grupo.nomes.get($keyNm)</li> 
+             </th>
+       
+        #end 
+       
+        </tr> 
+        </thead>  
+        <tbody>    
+        #foreach ($linha in $grupo.linhasValores)
+         <tr>   
+             
+            #foreach ($keyNm in $grupo.nomes.keySet())
+          
+             <td>
+               <!-- $keyNm --> #if ( $linha.get($keyNm) ) $linha.get($keyNm) #end
+             </td>
+       
+               #end               
+              
+         </tr> 
+         
+         
+           
+        #end  
+          <tr>
+         
+          <td colspan='$grupo.nomes.size()' > </td>
+        </tr>  
+         </tbody>
+       
+       </table> 
+      <br/>
+           
+     #end
+
+</div>
+</body>

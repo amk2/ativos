@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java.util.Map>
+	<java.lang.Object>
+		<java.lang.String>obterInformacoesMovimentoAtivoPorID
+		</java.lang.String>
+		<java.lang.String>
+			select informacoes_id, informacoes_descricao, layout_configuracoes_id, movimento_ativo_id, informacoes_id_referencia 
+			from informacoes_movimento_ativo 
+			where informacoes_id = ?
+		</java.lang.String>
+	</java.lang.Object>
+	-
+	<java.lang.Object>
+		<java.lang.String>adicionar</java.lang.String>
+		<java.lang.String>
+			insert into informacoes_movimento_ativo
+				(informacoes_descricao,layout_configuracoes_id, movimento_ativo_id,informacoes_id_referencia) 
+			values
+				(?,?,?,?)
+		</java.lang.String>
+	</java.lang.Object>
+	-
+	<java.lang.Object>
+		<java.lang.String>idAtual</java.lang.String>
+		<java.lang.String>select
+			currval('informacoes_movimento_ativo_informacoes_id_seq')
+		</java.lang.String>
+	</java.lang.Object>
+	-
+	<java.lang.Object>
+		<java.lang.String>excluirMovimentoAtivoId</java.lang.String>
+		<java.lang.String>
+			delete from informacoes_movimento_ativo where movimento_ativo_id = ?
+		</java.lang.String>
+	</java.lang.Object>
+	-
+	<java.lang.Object>
+		<java.lang.String>alterar</java.lang.String>
+		<java.lang.String>
+			update informacoes_movimento_ativo 
+			set informacoes_descricao=?, layout_configuracoes_id=?, movimento_ativo_id=? 
+			where informacoes_id = ?
+		</java.lang.String>
+	</java.lang.Object>
+	-
+	<java.lang.Object>
+		<java.lang.String>pesquisar</java.lang.String>
+		<java.lang.String>
+			select informacoes_id, informacoes_descricao, layout_configuracoes_id, movimento_ativo_id 
+			  from informacoes_movimento_ativo 
+		</java.lang.String>
+	</java.lang.Object>
+
+	<java.lang.Object>
+		<java.lang.String>pesquisarPorConfiguracaoId</java.lang.String>
+		<java.lang.String>
+			select layout_configuracoes_id 
+			  from informacoes_movimento_ativo 
+			 where layout_configuracoes_id=?
+		</java.lang.String>
+	</java.lang.Object>
+
+	<java.lang.Object>
+		<java.lang.String>obterInformacoesMovimentoAtivo</java.lang.String>
+		<java.lang.String>
+			select informacoes_id, informacoes_descricao, layout_configuracoes_id, informacoes_id_referencia, movimento_ativo_id 
+			from informacoes_movimento_ativo 
+			where movimento_ativo_id=?  
+		</java.lang.String>
+	</java.lang.Object>
+
+	<java.lang.Object>
+		<java.lang.String>obterInformacoesMovimentoAtivoRef</java.lang.String>
+		<java.lang.String>
+			SELECT informacoes_id, informacoes_descricao, layout_configuracoes_id, informacoes_id_referencia, movimento_ativo_id
+			  FROM informacoes_movimento_ativo
+			 WHERE informacoes_id_referencia=?  
+		</java.lang.String>
+	</java.lang.Object>
+
+	<java.lang.Object>
+		<java.lang.String>existeConfiguracoesAssociada</java.lang.String>
+		<java.lang.String>
+			select info.layout_configuracoes_id
+			from informacoes_locais info
+			inner join layout_configuracoes lconf on lconf.layout_configuracoes_id = info.layout_configuracoes_id
+			where lconf.layout_id = ?
+		</java.lang.String>
+	</java.lang.Object>
+
+
+</java.util.Map>
+
+

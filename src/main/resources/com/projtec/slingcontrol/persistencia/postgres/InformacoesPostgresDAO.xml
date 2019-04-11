@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java.util.Map>
+
+    <java.lang.Object>
+     <java.lang.String>incluir</java.lang.String>
+     <java.lang.String>     
+            INSERT INTO 
+			informacoes_locais
+			(
+			  informacoes_descricao,
+			  configuracoes_id,
+			  locais_id
+			) 
+			VALUES (
+			  ? ,
+			  ? ,
+			  ?
+			);
+     </java.lang.String> 
+     
+    </java.lang.Object>
+   
+  
+   
+</java.util.Map>
+
+

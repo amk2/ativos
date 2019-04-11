@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java.util.Map>
+    <java.lang.Object>
+		<java.lang.String>obterIDsParaItemAtivo</java.lang.String> 
+		<java.lang.String>
+				select 
+				  a.demanda_id,
+				  b.layout_id,
+				  c.locais_latitude ,
+				  c.locais_longitude ,
+				  c.locais_localizacao_x ,
+				  c.locais_localizacao_y ,
+				  c.locais_identificacao ,
+				  d.ativos_id,
+				  c.locais_id
+				from 
+				  demandas a,
+				  layouts b,
+				  locais c,
+				  ativos d
+				where 
+				  a.layout_id = b.layout_id and
+				  b.layout_id = c.layout_id and
+				  b.layout_id = d.layout_id
+				  and a.demanda_id = ?
+  		</java.lang.String> 
+  	</java.lang.Object>
+    
+
+    <java.lang.Object>
+		<java.lang.String>inserirItemAtivo</java.lang.String> 
+		<java.lang.String>
+			  INSERT INTO itens_ativo(         
+			     itens_ativo_localizacao_x ,
+			     itens_ativo_localizacao_y ,
+			     itens_ativo_latitude ,
+			     itens_ativo_longitude ,
+			     itens_ativo_identificacao ,
+			     ativos_id ,
+			     locais_id )
+			  values 
+			     (  ?,  ?,  ?,  ?,  ?,  ?,  ?)
+		</java.lang.String> 
+  	</java.lang.Object>
+    
+    
+    <java.lang.Object>
+		<java.lang.String>adicionar</java.lang.String> 
+		<java.lang.String>
+		   INSERT INTO itens_ativo(
+            itens_ativo_identificacao, itens_ativo_altura, 
+            itens_ativo_profundidade, ativos_id, locais_id)
+             VALUES (?, ?, ?, ?, ?);
+		</java.lang.String> 
+  	</java.lang.Object>
+  	
+    <java.lang.Object>
+  		<java.lang.String>idAtual</java.lang.String> 
+  		<java.lang.String>select currval('itens_ativo_itens_ativo_id_seq')</java.lang.String> 
+  	</java.lang.Object>
+
+    	  	
+   <java.lang.Object>
+		<java.lang.String>excluir</java.lang.String> 
+		<java.lang.String>DELETE FROM itens_ativo WHERE itens_ativo_id=?</java.lang.String> 
+  	</java.lang.Object>
+  	
+  	
+  	<java.lang.Object>
+		<java.lang.String>alterar</java.lang.String> 
+		<java.lang.String> 
+		UPDATE itens_ativo
+        SET itens_ativo_identificacao=?, itens_ativo_altura=?, 
+        itens_ativo_profundidade=?, ativos_id=?, locais_id=? WHERE itens_ativo_id=?
+       </java.lang.String> 
+  	</java.lang.Object>
+  	
+  	<java.lang.Object>
+		<java.lang.String>obterID</java.lang.String> 
+		<java.lang.String> 
+			SELECT itens_ativo_id, itens_ativo_identificacao, itens_ativo_altura, 
+	       itens_ativo_profundidade, ativos_id, locais_id
+	       FROM itens_ativo  WHERE itens_ativo_id=?
+       </java.lang.String> 
+  	</java.lang.Object>
+  	  	  	
+  	<java.lang.Object>
+		<java.lang.String>obterItensAtivo</java.lang.String> 
+		<java.lang.String> 
+			SELECT itens_ativo_id, itens_ativo_identificacao, itens_ativo_altura, 
+	       itens_ativo_profundidade, ativos_id, locais_id
+	       FROM itens_ativo  WHERE ativos_id=?
+       </java.lang.String> 
+  	</java.lang.Object>
+
+  	
+  	<java.lang.Object>
+		<java.lang.String>obterItensAtivosSemLocalID</java.lang.String> 
+		<java.lang.String> 
+			SELECT 
+				a.itens_ativo_id, 
+				a.itens_ativo_identificacao, 
+				a.itens_ativo_altura, 
+				a.itens_ativo_profundidade, 
+				a.ativos_id, 
+				a.locais_id
+			FROM 	
+				itens_ativo a, locais b 
+			WHERE 
+				a.locais_id = b.locais_id 
+				and
+				ativos_id=?
+	     </java.lang.String> 
+  	</java.lang.Object>
+
+  	
+  	
+</java.util.Map>
+
+
+
+
+

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java.util.Map>
+
+    <java.lang.Object>
+     <java.lang.String>adicionar</java.lang.String>
+     <java.lang.String>     
+            INSERT INTO 
+			informacoes_estoque	(
+			  informacoes_descricao,
+			  layout_configuracoes_id,
+			  estoque_id,
+			  informacoes_id_referencia
+			) 
+			VALUES (
+			  ? ,
+			  ? ,
+			  ? ,
+			  ?
+			);
+     </java.lang.String> 
+     
+    </java.lang.Object>
+    
+    
+   
+   <java.lang.Object>
+      <java.lang.String>idAtual</java.lang.String>
+      <java.lang.String>
+          select currval('informacoes_estoque_informacoes_id_seq')
+       </java.lang.String>
+   </java.lang.Object>
+  
+   <java.lang.Object>
+     <java.lang.String>excluirPorEstoque</java.lang.String>
+      <java.lang.String>
+          DELETE FROM informacoes_estoque  
+          WHERE estoque_id = ?
+       </java.lang.String>
+   </java.lang.Object>
+   
+   
+      <java.lang.Object>
+     <java.lang.String>obterInformacoesLocais</java.lang.String>
+      <java.lang.String>
+         SELECT 
+         informacoes_id,
+         informacoes_descricao,
+         layout_configuracoes_id,
+         locais_id,
+         informacoes_id_referencia
+         FROM 
+         informacoes_locais WHERE locais_id = ?  ;
+       </java.lang.String>
+   </java.lang.Object>
+   
+  <java.lang.Object>
+     <java.lang.String>obterInformacoesLocaisRef</java.lang.String>
+      <java.lang.String>
+		SELECT 
+		  informacoes_id,
+		  informacoes_descricao,
+		  layout_configuracoes_id,
+		  informacoes_id_referencia,
+		  locais_id
+		FROM 
+		  informacoes_locais 
+		  where informacoes_id_referencia = ?  ;
+       </java.lang.String>
+   </java.lang.Object>
+   
+   
+     <java.lang.Object>
+     <java.lang.String>pesquisarPorConfiguracaoId</java.lang.String>
+      <java.lang.String>
+			SELECT 
+		  		layout_configuracoes_id
+			FROM 
+		  		informacoes_locais 
+		  	WHERE layout_configuracoes_id = ?  ;
+       </java.lang.String>
+   </java.lang.Object>
+   
+         <java.lang.Object>
+     <java.lang.String>obterInformacoesEstoque</java.lang.String>
+      <java.lang.String>
+         SELECT informacoes_id, informacoes_descricao, layout_configuracoes_id, estoque_id, informacoes_id_referencia
+         FROM informacoes_estoque 
+         WHERE estoque_id = ?;
+       </java.lang.String>
+   </java.lang.Object>
+   
+   
+</java.util.Map>
+
+

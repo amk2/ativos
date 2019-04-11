@@ -1,0 +1,293 @@
+<script src="$context/resources/js/fechar-janela.js" type="text/javascript"></script>
+<script src="$context/resources/js/jquery.selectboxes.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+
+
+$(function(){   
+
+    	 jQuery("#demandasForm_tipoMovimentacao_DEM_MOV_ATV").click( function() 
+		 { 
+		   
+		     //alert("ola");
+			 $("#panelDemandasFormMovimentoAtivo").show("slow");
+			 $("#panelDemandasFormEntradaAtivo").hide("slow");
+			
+		 }); 
+
+
+    	 jQuery("#demandasForm_tipoMovimentacao_DEM_ENTRADA").click( function() 
+		 { 
+    		 $("#panelDemandasFormEntradaAtivo").show("slow");
+			 $("#panelDemandasFormMovimentoAtivo").hide("slow");
+		 }); 
+
+    	 $("#destino").ready( function() {
+        	 
+    		 //$("#destino").addOption("Teste", "Teste");
+    	 });
+
+
+
+    	 
+    $(function(){ 
+ 			$("#pesquisarDemandas").fancybox({
+ 				'width'				: '60%',
+ 				'height'			: '85%',
+ 				'autoScale'			: true,
+ 				'transitionIn'	    : 'elastic',
+ 				'transitionOut'	    : 'elastic',
+ 				'type'				: 'iframe',
+ 				'titlePosition'	    : 'inside',
+ 				'showCloseButton'   : true 
+ 	             			
+ 			
+ 		     });
+ 	  }); 
+    	 
+	 $(function(){ 
+			$("#pesquisarAtivosEntrada").fancybox({
+				'width'				: '93%',
+				'height'			: '85%',
+				'autoScale'			: true,
+				'transitionIn'	    : 'elastic',
+				'transitionOut'	    : 'elastic',
+				'type'				: 'iframe',
+				'titlePosition'	    : 'inside',
+				'showCloseButton'   : true
+			});
+	  }); 
+
+
+
+	 $(function(){ 
+			$("#pesquisarAtivosMovimentoAtivo").fancybox({
+				'width'				: '60%',
+				'height'			: '85%',
+				'autoScale'			: true,
+				'transitionIn'	    : 'elastic',
+				'transitionOut'	    : 'elastic',
+				'type'				: 'iframe',
+				'titlePosition'	    : 'inside',
+				'showCloseButton'   : true
+			});
+	  }); 
+
+	 $(function(){ 
+			$("#detalheDem").fancybox({
+				'width'				: '30%',
+				'height'			: '55%',
+				'autoScale'			: true,
+				'transitionIn'	    : 'elastic',
+				'transitionOut'	    : 'elastic',
+				'type'				: 'iframe',
+				'titlePosition'	    : 'inside',
+				'showCloseButton'   : true
+			});
+	  });
+	 
+     $(function(){ 
+    	 $("#clickItem").fancybox({
+ 			'width'				: '60%',
+ 			'height'			: '85%',
+ 			'autoScale'			: true,
+ 			'transitionIn'	    : 'elastic',
+ 			'transitionOut'	    : 'elastic',
+ 			'type'				: 'iframe',			 
+ 			'titlePosition'	    : 'inside',
+ 			'showCloseButton'   : true 	
+ 	     });
+    }); 
+}); 
+
+
+
+
+function salvarItensSelecionados(selecionados) {
+    var listaView ="";   
+    
+    var comboIds = new Array();
+    for(var i=0;i<selecionados.length;i++) {
+         var obj = selecionados[i];
+         do {
+			 var id = "destino" + (1 + Math.floor(Math.random() * 9999));
+	     } while(contains(comboIds, id));
+         var localinicial = trim(obj.ID_LOCAL);
+         comboIds.push(id);
+    	 listaView =  listaView + "<div  id='"+  obj.ID  +"'  style='border: 1px blue solid;margin-top: 2px;'> " 
+						       +  " Nome : <input type='text' maxlength='100'  size='100' disabled='disabled'  value='" + obj.NOME +"'>"                         
+    	                       +  " Identifica&ccedil;&atilde;o : <input type='text' maxlength='100'  size='100' disabled='disabled'  value='" + obj.IDENTIFICADOR +"'>"                         
+    	                       +  " Localiza&ccedil;&atilde;o : <input type='text' maxlength='100'  size='100'   disabled='disabled'  value='" + obj.LOCAL +"'>"
+                               +  " Destino : <select id='" + id + "' onchange='adicionarLocalDestinoMovimento("+  obj.ID + "," + id +")'  class='validate[required]'><option  selected='selected' value='' >-- Selecione-- </option></select> <br />"                               							   
+							   +  "<a href='javascript:remover("+   obj.ID + ")' id='"+   obj.ID +"' > remover </a> " 
+							   +  "<input type=\"hidden\" name=\"itemAtivosMovAtivo\" id=\"itemAtivosMovAtivo\" " 
+							   +  " value=\"" + obj.ID  + ";" + trim(obj.IDENTIFICADOR) + ";" + localinicial + "\"/>" 							  
+							   + " </div>";
+			    	 //listaView.append(  ) ; 
+		 
+          //$('#listaDemandasMovimentoAtivo').append($('#ComboBoxLocais')) ;
+          
+          //alert('TESTE ' +  listaView);
+
+    	 
+       }
+	    $('#listaDemandasMovimentoAtivo').append(listaView);
+	   
+		fecharJanelaPesquisaAtivos();
+		var opcoes = new Array();
+		var val = "";
+		var tex = "";
+		for(var i = 0; i < document.getElementsByTagName('select')['ComboBoxLocais'].options.length;i++) 
+		{  
+		   val = document.getElementsByTagName('select')['ComboBoxLocais'].options[i].value;
+		   tex = document.getElementsByTagName('select')['ComboBoxLocais'].options[i].text;
+		   opcoes [val] = tex;
+		}
+		
+	
+		for(var i = 0; i < comboIds.length; i++) 
+		{    
+			$("#" + comboIds[i]).addOption(opcoes, false);
+			 
+		}
+		
+ 	 }
+
+	function salvarEntradaSelecionados(selecionados) 
+	{   
+	       var listaView ="";    
+           var comboIds = new Array();
+		   for(var i=0;i<selecionados.length;i++)
+		   {
+             var obj = selecionados[i];
+			 //listaView
+			 do {
+				 var uid = (1 + Math.floor(Math.random() * 9999) );
+				 var id = "destino" + uid;
+				 var idDiv = "div"  + uid;
+		     } while(contains(comboIds, id));		     
+		     
+		     comboIds.push(id);
+        	 listaView =  listaView + "<div  id='"+  idDiv  +"'  style='border: 1px blue solid;margin-top: 2px;'> "  
+					               +  " Nome : <input type='text' maxlength='100'  size='100'   disabled='disabled'   value='" + obj.nome +"'>"                         
+        	                       +  " Identifica&ccedil;&atilde;o : <input type='text' maxlength='100'  size='100'   disabled='disabled'   value='" + obj.identificacao +"'>"                         
+                                   +  " Destino : <select id='" + id + "' onchange=adicionarLocalDestinoEntrada('"+  idDiv  + "'," + id +")  class='validate[required]' ><option   selected='selected' value='' >-- Selecione-- </option></select> <br />"                               							   
+								   +  "<a href=javascript:remover('" +   idDiv + "')  id='"+    idDiv +"' > remover </a> " 
+								   +  "<input type=\"hidden\" name=\"itemAtivoEntrada\" id=\"itemAtivoEntrada\""
+								   +  " value='" +  obj.ID  + ";" + obj.identificacao  + "'/>" 								  
+								   + " </div>";
+				    	 //listaView.append(  ) ; 
+			 
+              //$('#listaDemandasMovimentoAtivo').append($('#ComboBoxLocais')) ;
+        	 
+           }
+		    $('#listaDemandasEntradaAtivo').append(listaView);
+		    
+			fecharJanelaPesquisaAtivos();
+
+			var opcoes = new Array();
+			var val = "";
+			var tex = "";
+			for(var i = 0; i < document.getElementsByTagName('select')['ComboBoxLocais'].options.length;i++) {
+			   val = document.getElementsByTagName('select')['ComboBoxLocais'].options[i].value;
+			   tex = document.getElementsByTagName('select')['ComboBoxLocais'].options[i].text;
+			   opcoes [val] = tex;
+			}		
+			for(var i = 0; i < comboIds.length; i++) {
+				$("#" + comboIds[i]).addOption(opcoes, false);
+			}
+			
+	}
+	
+	function remover(idAtivo)
+	{
+	  //alert( " remover .... " + idAtivo ) ;
+	  $('#'+ idAtivo).remove();
+	}
+	
+	function adicionarLocalDestinoMovimento(idDiv, objCombo)
+	{   
+		//SETA valores de itemAtivosMovAtivo : [ID_ITEM;ID_LOCAL_ORIGEM;ID_LOCAL_DESTINO]
+		var selIndex = objCombo.selectedIndex;		
+		var idLocalDestino = objCombo.options[selIndex].value;
+
+		var objItemAtivo =  $('#'+  idDiv ).children('#itemAtivosMovAtivo');
+		//alert( "onde Setar :" +   objItemAtivo.val() );
+		adcionarDestino(objItemAtivo,idLocalDestino, 3 );		
+		//alert("MOVIMENTO ****** local destino movimento ID Div : " + idDiv + "--- Destino: "  + idLocalDestino);
+		
+
+	}
+	
+	function adicionarLocalDestinoEntrada(idDiv , objCombo)
+	{ 
+		//SETA VALORES [ID_ATIVO;IDENTIFICADOR;ID_LOCAL_DESTINO]
+		//alert(" ENTRADA ******** local destino entrada ID Div" + idDiv);
+		var selIndex = objCombo.selectedIndex;		
+		var idLocalDestino = objCombo.options[selIndex].value;
+
+		var objItemAtivo =  $('#'+  idDiv ).children('#itemAtivoEntrada');
+		//alert( "onde Setar :" +   objItemAtivo.val() );
+		
+		adcionarDestino(objItemAtivo,idLocalDestino, 2);		
+		
+	}
+	
+	
+	function adcionarDestino(objField, valorDestino, index)
+	{
+
+		var valores = new Array();
+		valores = objField.val().split(';');
+		valores[index] = valorDestino;
+		var strValor=""; 
+
+		for(var i=0;i<valores.length;i++)
+		{
+
+			var obj = valores[i]; 
+
+			if(obj!='')
+            {
+               strValor = strValor + obj + ";" ; 
+            }
+
+		}
+		
+		objField.val(strValor);
+		
+	}
+	  
+	function contains(a, obj) {
+		  var i = a.length;
+		  while (i--) {
+		    if (a[i] === obj) {
+		      return true;
+		    }
+		  }
+		  return false;
+		}
+	
+	
+		
+</script>
+
+
+
+
+
+#if($mensagemErro && $mensagemErro ne "" )  
+	<div id="panelMensagemErro" style="color:red; font-size:10pt; border: red 1px solid; width:99%; text-align: center; height: 20px; font-weight: bold;" >
+		<p> $mensagemErro </p>
+	</div>
+#end
+
+
+#if($mensagemSucesso && $mensagemSucesso ne "" )  
+	<div id="panelMensagemSucesso" style="color:blue; font-size:10pt; border: blue 1px solid; width:99%; text-align: center; height: 20px; font-weight: bold;" >
+		<p> $mensagemSucesso </p>
+	</div>
+#end
+   
+#writeFormDemandasItens($demandasForm)
+

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java.util.Map>
+    <java.lang.Object>
+     <java.lang.String>obterEstoquePorID</java.lang.String>
+     <java.lang.String>     
+          SELECT estoque_id, estoque_nome, estoque_descricao, layout_id
+		  FROM estoque 
+		  WHERE estoque_id=?     
+     </java.lang.String> 
+    </java.lang.Object>        
+   <java.lang.Object>
+     <java.lang.String>adicionar</java.lang.String>
+      <java.lang.String>
+            INSERT INTO estoque
+			(
+			  estoque_nome,
+			  estoque_descricao,
+			  layout_id
+			) 
+			VALUES (
+			  ?,
+			  ?,
+			  ?
+			);
+       </java.lang.String>
+   </java.lang.Object>
+
+   <java.lang.Object>
+     <java.lang.String>idAtual</java.lang.String>
+      <java.lang.String>
+          select currval('estoque_estoque_id_seq')
+       </java.lang.String>
+   </java.lang.Object>
+   
+   <java.lang.Object>
+     <java.lang.String>excluir</java.lang.String>
+      <java.lang.String>
+         delete from estoque where estoque_id = ?
+       </java.lang.String>
+   </java.lang.Object>
+   
+   
+    <java.lang.Object>
+     <java.lang.String>alterar</java.lang.String>
+      <java.lang.String>
+	            UPDATE estoque  
+				SET estoque_nome = ?, estoque_descricao = ?, layout_id = ?
+				WHERE estoque_id = ?
+       </java.lang.String>
+   </java.lang.Object>
+   
+   
+   <java.lang.Object>
+     <java.lang.String>pesquisar</java.lang.String>
+      <java.lang.String>
+         SELECT est.estoque_id, est.estoque_nome, est.estoque_descricao, est.layout_id
+		 FROM estoque est
+		 WHERE lower(est.estoque_nome) like ? and lower(est.estoque_descricao) like ? 
+		 ORDER BY est.estoque_nome;
+      </java.lang.String>
+   </java.lang.Object>
+   
+   
+   <java.lang.Object>
+     <java.lang.String>obterTodos</java.lang.String>
+      <java.lang.String>
+		  SELECT estoque_id, estoque_nome, estoque_descricao, layout_id
+  		  FROM estoque
+ 		  ORDER BY estoque_nome;
+       </java.lang.String>
+   </java.lang.Object>
+   
+   
+   
+  
+   
+</java.util.Map>
+
+

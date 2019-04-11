@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+
+<menu>
+
+	<menu label="Home" path="home.htm" />
+
+	<menu label="Ativos" path="ativos.htm" roles="menu:ativos" />
+
+	<menu label="Demanda" path="#" roles="menu:demandas" >
+	      <menu label="Abertura" path="demandasFormDados.htm" roles="menu:demandas" />
+	    <!--   <menu label="Abertura Novo" path="demandasFormDadosNovo.htm" roles="menu:demandas" /> -->
+	      <menu label="Pesquisar" path="demandasPesquisa.htm" roles="menu:demandas" />
+	      
+	</menu>
+
+	<menu label=" Movimento Ativo " path="movimentoAtivo.htm" roles="menu:movimentoAtivo" />
+
+	
+	
+	<menu label="Consultar Itens " path="#" roles="menu:estoque" >
+	    <menu label="Consultar Estoque" path="consultarEstoque.htm" roles="menu:consultarEstoque" />
+	    <menu label="Consultar Itens Ativos" path="itensAtivosPesquisa.htm" roles="menu:consultarEstoque" />
+	</menu>
+
+	<!-- 
+	<menu label="Relatórios " path="#" roles="menu:relatorio" >
+	    <menu label="Locais" path="consultarRelatorio.htm" roles="menu:consultarRelatorio" />
+	</menu>
+		 -->	
+	
+
+	<menu label="Administração" path="#"
+		roles="menu:administracao:administracao">
+
+		<menu label="Tipo Layout" path="adm/tipoLayout.htm" roles="menu:administracao:tipoLayout" />
+		<menu label="Tipo Demanda" path="adm/tipoDemanda.htm" roles="menu:administracao:tipoDemanda" />
+		<menu label="Tipo Movimentação" path="adm/tipoMovimentoAtivo.htm"
+			roles="menu:administracao:tipoMovimentoAtivo" />
+				<menu label="Layout" path="adm/layout.htm" roles="menu:administracao:layout" />
+		<menu label="Configurações" path="adm/configs.htm" roles="menu:administracao:configuracao" />
+		<menu label="Estoque" path="estoque.htm" roles="menu:administracao:estoque" />
+		<menu label="Locais" path="adm/locais.htm" roles="menu:administracao:locais" />
+		<menu label="Imagens" path="adm/imagens.htm" roles="menu:administracao:imagens" />
+
+	</menu>
+
+	<!-- <menu label=" Relatorios " path="#" /> -->
+
+</menu>

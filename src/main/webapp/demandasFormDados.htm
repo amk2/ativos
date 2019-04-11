@@ -1,0 +1,70 @@
+<script src="$context/resources/js/fechar-janela.js" type="text/javascript"></script>
+<script type="text/javascript">
+	
+	$(function(){   
+		
+	    $(function(){ 
+	 			$("#pesquisarDemandas").fancybox({
+	 				'width'				: '60%',
+	 				'height'			: '85%',
+	 				'autoScale'			: true,
+	 				'transitionIn'	    : 'elastic',
+	 				'transitionOut'	    : 'elastic',
+	 				'type'				: 'iframe',
+	 				'titlePosition'	    : 'inside',
+	 				'showCloseButton'   : true 
+	 	             			
+	 			
+	 		     });
+	 	  }); 
+	
+		 $(function(){ 
+				$("#detalheDem").fancybox({
+					'width'				: '30%',
+					'height'			: '55%',
+					'autoScale'			: true,
+					'transitionIn'	    : 'elastic',
+					'transitionOut'	    : 'elastic',
+					'type'				: 'iframe',
+					'titlePosition'	    : 'inside',
+					'showCloseButton'   : true
+				});
+		  });
+		 
+	 
+	}); 
+
+	function salvarDependencia(demanda) 
+	{
+		  var url ='$context/demandasFormDados.htm?IdDemanDep=' + demanda.ID ;
+		 
+		  var extraData = 'pageAction=onAdicionarDependencia';
+	      jQuery.post(url, extraData, function(data) {
+	          
+	    	  //alert(data);
+	    	  document.forms[0].submit();
+	    	
+	      });
+		
+	} 
+
+
+	function remover(idAtivo)
+	{
+	  //alert( " remover .... " + idAtivo ) ;
+	  jQuery('#'+ idAtivo).remove();
+	}
+
+</script>
+
+
+
+#if($mensagemErro && $mensagemErro ne "" )  
+	<div id="panelMensagemErro" style="color:red; font-size:10pt; border: red 1px solid; width:99%; text-align: center; height: 20px; font-weight: bold;" >
+		<p> $mensagemErro </p>
+	</div>
+#end
+
+
+
+ #writeFormDadosDemandas($demandasForm)  

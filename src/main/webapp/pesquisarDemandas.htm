@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Gest&#227;o de Ativos - $title</title>
+
+<link href="$context/resources/css/facebox/facebox.css" media="screen" rel="stylesheet" type="text/css"/>
+	<link href="$context/resources/css/cupertino/jquery-ui-1.8.2.custom.css" rel="stylesheet" type="text/css" />
+	<link href="$context/resources/css/ui.jqgrid.css" rel="stylesheet" type="text/css" />
+    <link href="$context/resources/css/fg.menu.css" rel="stylesheet" type="text/css" />
+    <link href="$context/resources/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="$context/resources/css/thickbox.css" rel="stylesheet" type="text/css" />      	
+    <link rel="stylesheet" href="$context/resources/css/validationEngine.jquery.css" type="text/css" media="screen" charset="utf-8" />
+	<script src="$context/resources/js/jquery-1.4.2.min.js" type="text/javascript"></script>
+	<script src="$context/resources/js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
+	<script src="$context/resources/js/jquery.splitter.js" type="text/javascript"></script>
+	<script src="$context/resources/js/fg.menu.js" type="text/javascript"></script>
+	<script src="$context/resources/js/functions.js" type="text/javascript"></script>
+	<script src="$context/resources/js/facebox/facebox.js" type="text/javascript"></script> 
+	<script src="$context/resources/js/jquery.validationEngine-pt.js" type="text/javascript"></script>
+	<script src="$context/resources/js/jquery.validationEngine.js" type="text/javascript"></script>
+	<script src="$context/resources/js/jqModal.js" type="text/javascript"></script>
+	<script src="$context/resources/js/thickbox-compressed.js" type="text/javascript"></script>
+    <script src="$context/resources/js/grid.locale-pt-br.js" type="text/javascript"></script>
+	<script src="$context/resources/js/jquery.jqGrid.min.js" type="text/javascript"></script>
+	
+	 
+
+	 
+<script type="text/javascript">
+
+	$(function(){   
+		jQuery("#selecionarAtivos").click( function() { 
+			salvarSelecionados();
+		});
+		jQuery("#pesquisarID").click(function(event){
+			
+			//jQuery("#listGridDinamico").ClearGridData();
+			
+			//jQuery("#listGridDinamico").trigger("refresh");
+        	//jQuery("#listGridDinamico").trigger("reloadGrid");
+        	//jQuery("#listGridDinamico").jqGrid("clearGridData", true)
+        	
+        	
+        	pesquisarAtivosDinamicoRemote(event);
+
+        	
+
+        	return false;
+        });
+		jQuery("#adicionarDemanda").click(function() {
+			var s = jQuery("#listGridDinamico").getGridParam('selrow');
+			if (s != null) {
+				var obj = jQuery("#listGridDinamico").getRowData(s);
+				parent.salvarDependencia(obj);
+			} else {
+				alert('Selecione uma Demanda!');
+			}
+			return false;
+		});
+		
+	});
+
+	function salvarSelecionados() 
+	{ 
+	  //alert('teste');
+	  var s; s = jQuery("#listGridDinamico").jqGrid('getGridParam','selarrrow'); 
+	  parent.salvarSelecionados(s);
+	  return ;
+    }
+	
+	
+	//pesquisarRemoteDinamico
+	
+	 function pesquisarAtivosDinamicoRemote(event)
+	{
+           
+		 	
+		 	
+            var link = jQuery('#pesquisarID');
+          
+			var form = jQuery('#ativosForm');
+			
+		    var formData = form.serialize();
+		    //formData +='&' + form.attr('id') + '=1';	
+			formData +='&' + link.attr('id') + '=1';
+            formData +='&' + link.attr('id') + '=1';
+            
+            //destroi a grid, não serve
+            //$("#listGridDinamico").jqGrid("GridUnload");
+            
+            
+            
+            var url = link.attr('href');
+            jQuery.post(url, formData, function(data) 
+			{
+			
+            	
+             //alert (data);
+			 //alert(data.length);
+             
+			 var result=eval("("+ data + ")");  
+			 
+			 //alert(result);
+
+			  colD =  result.gridModel ;			  
+              colN = result.colNames;
+              colM = result.colModel;
+              
+			  //alert(colM);
+			  
+			  //$("#listGridDinamico").setGridParam({ 'data': result});
+        	  //$("#listGridDinamico").trigger("reloadGrid");
+        	  
+			  //jQuery("#listGridDinamico").trigger("reloadGrid");
+			  //jQuery("#listGridDinamico").setGridParam({ 'data': result}).trigger("reloadGrid");
+			  
+			  //jQuery("#listGridDinamico").jqGrid("clearGridData", false).trigger("reloadGrid");
+			  //for ( var i = 0; i < data.length; i++) {
+			  //jQuery("#listGridDinamico").jqGrid('addRowData', i + 1, data[i]);   
+			  //}
+			  //jQuery("#listGridDinamico").jqGrid().trigger("reloadGrid");
+			  
+			 
+			  jQuery("#listGridDinamico").jqGrid({
+                
+				  
+                 jsonReader : {
+                    repeatitems: false,
+                    root:"dataset",
+                    cell: "",
+                    id: "0"
+                  },
+                  
+                  //ajaxGridOptions: {cache: false}
+                  gridview: true,
+                  datatype: 'jsonstring',
+                  mtype: 'POST',
+                  datastr : colD,
+                  colNames:colN,
+                  colModel :colM,
+                  // pager: jQuery('#pagerlistGridDinamico'),
+                  // rowNum: 5,
+                  // rowList: [5, 10, 20, 50],
+                  viewrecords: true,
+				  multiselect: false,
+                  //loadComplete: function(data){alert('loaded');},
+                  loadError: function(xhr,status,error){alert('error');}
+              });
+			  
+			  //.trigger("reloadGrid")
+			  
+			 //var objResult = eval("("+ data + ")");  
+            // grid.addJSONData(objResult); 							 
+                  
+            }, {dataType:'json'});			
+			
+			//exibir o botao de adicionar 
+			
+			//jQuery("#listGridDinamico").trigger("reloadGrid");
+			
+			
+			$("#pesquisarID").hide("slow");
+			$("#adicionarDemanda").show("slow");
+
+        
+       }
+	
+</script>
+
+</head>
+<body>
+
+<div id="principalPesquisa" >	
+ 	  
+	  #writeFormPesquisa(${ativosForm})	
+	  
+	  <p align="right">
+	   $pesquisarLink 	  
+	   $limparLink 
+	    
+      </p>
+		 <br>
+	<p>	  		
+	 
+	   <table id="listGridDinamico"></table> 
+	   <div id="pagerlistGridDinamico"></div>			
+     </p>
+	 <br>
+	 <p align="right"> 
+       <input  style="display: none" href="javascript:void(0)" id="adicionarDemanda" src="$context/resources/images/btnAdicionar.png" type="image"> &nbsp;	
+         
+     </p>
+</div> 
+</body>
+</html>

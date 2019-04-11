@@ -1,0 +1,13 @@
+#conteudoMapa {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	line-height: 20px;
+	color: #666666;
+}
+.tituloMapa {
+	font-weight: bold;
+	color: #133C53;
+	font-size: 12px;
+	border-bottom: 1px dotted #133C53;
+	width: 200px; 
+}

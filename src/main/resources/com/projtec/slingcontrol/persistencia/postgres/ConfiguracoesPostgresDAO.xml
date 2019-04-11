@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java.util.Map>
+
+  <java.lang.Object>
+     <java.lang.String>obterConfiguracoesFilho</java.lang.String> 
+	 <java.lang.String>
+	  SELECT layout_configuracoes_id,layout_configuracoes_nome_campo,
+	  layout_configuracoes_obrigatoriedade,layout_configuracoes_tamanho_campo,
+	  layout_id,tpCampo.tipos_campo_id,tpcampo.tipos_campo_descricao,
+	  layout_configuracoes_pesquisa, layout_configuracoes_ordem
+	  FROM 
+	  layout_configuracoes  c left join tipos_campo tpCampo on (c.tipos_campo_id=tpCampo.tipos_campo_id)
+	  WHERE layout_configuracoes_id_referencia = ?  order by c.layout_configuracoes_ordem
+	 </java.lang.String> 
+  </java.lang.Object>
+  
+    <java.lang.Object>
+     <java.lang.String>obterConfiguracoesPorLayout</java.lang.String> 
+	 <java.lang.String>
+	  SELECT layout_configuracoes_id,layout_configuracoes_nome_campo,
+	  layout_configuracoes_obrigatoriedade,layout_configuracoes_tamanho_campo,
+	  layout_id,tpCampo.tipos_campo_id,tpcampo.tipos_campo_descricao,
+	  layout_configuracoes_pesquisa, layout_configuracoes_ordem
+	  FROM 
+	  layout_configuracoes  c inner join tipos_campo tpCampo on (c.tipos_campo_id=tpCampo.tipos_campo_id)
+	  WHERE layout_id = ?  order by c.layout_configuracoes_ordem
+	 </java.lang.String> 
+  </java.lang.Object>
+  
+  <java.lang.Object>
+     <java.lang.String>existeConfiguracoesLayoutId</java.lang.String> 
+	 <java.lang.String>
+	  		SELECT layout_configuracoes_id
+	  		FROM  layout_configuracoes  
+	  		WHERE layout_id = ?  
+	 </java.lang.String> 
+  </java.lang.Object>
+  
+ <java.lang.Object>
+  <java.lang.String>adicionar</java.lang.String> 
+  <java.lang.String>INSERT INTO layout_configuracoes(
+                      layout_configuracoes_nome_campo,
+                      layout_configuracoes_obrigatoriedade,
+                      layout_configuracoes_tamanho_campo,
+                      layout_id,
+                      tipos_campo_id,
+                      layout_configuracoes_pesquisa,                      
+                      layout_configuracoes_ordem,
+                      layout_configuracoes_id_referencia) VALUES (?,?,?,?,?,?,?,?);
+  </java.lang.String> 
+  </java.lang.Object>
+ <java.lang.Object>
+   <java.lang.String>idAtual</java.lang.String> 
+   <java.lang.String>select currval('layout_configuracoes_layout_configuracoes_id_seq')</java.lang.String> 
+  </java.lang.Object>
+ <java.lang.Object>
+<java.lang.String>excluirConfiguracoesLayout</java.lang.String> 
+  <java.lang.String>DELETE FROM layout_configuracoes WHERE layout_id = ?</java.lang.String> 
+  </java.lang.Object>
+  
+   <java.lang.Object>
+    <java.lang.String>excluir</java.lang.String> 
+    <java.lang.String>DELETE FROM layout_configuracoes  WHERE layout_configuracoes_id = ? </java.lang.String> 
+  </java.lang.Object>
+  
+ <java.lang.Object>
+  <java.lang.String>alterar</java.lang.String> 
+  <java.lang.String>UPDATE layout_configuracoes  
+                    SET layout_configuracoes_nome_campo = ?,
+                    layout_configuracoes_obrigatoriedade = ?,
+                    layout_configuracoes_tamanho_campo = ?,
+                    layout_id = ?,
+                    tipos_campo_id = ?,
+                    layout_configuracoes_pesquisa = ?, 
+                    layout_configuracoes_ordem=? 
+                    WHERE layout_configuracoes_id = ? 
+  </java.lang.String> 
+  </java.lang.Object> 
+  
+  <java.lang.Object>
+     <java.lang.String>obterPorID</java.lang.String> 
+	 <java.lang.String>
+	  SELECT layout_configuracoes_id,layout_configuracoes_nome_campo,
+	  layout_configuracoes_obrigatoriedade,layout_configuracoes_tamanho_campo,
+	  layout_id,tpCampo.tipos_campo_id,tpcampo.tipos_campo_descricao,
+	  layout_configuracoes_pesquisa, layout_configuracoes_ordem
+	  FROM 
+	  layout_configuracoes  c inner join tipos_campo tpCampo on (c.tipos_campo_id=tpCampo.tipos_campo_id)
+	  WHERE layout_configuracoes_id = ?  
+	 </java.lang.String> 
+  </java.lang.Object>
+   
+  <java.lang.Object>
+     <java.lang.String>pesquisar</java.lang.String> 
+	 <java.lang.String>
+	  SELECT layout_configuracoes_id,layout_configuracoes_nome_campo,
+	  layout_configuracoes_obrigatoriedade,layout_configuracoes_tamanho_campo,
+	  layout_id,tpCampo.tipos_campo_id,tpcampo.tipos_campo_descricao,
+	  layout_configuracoes_pesquisa, layout_configuracoes_ordem
+	  FROM 
+	  layout_configuracoes  c inner join tipos_campo tpCampo on (c.tipos_campo_id=tpCampo.tipos_campo_id)
+	  WHERE 1=1 AND layout_id IS NOT NULL 
+	 </java.lang.String> 
+  </java.lang.Object>
+    
+  <java.lang.Object>
+   <java.lang.String>excluirConfiguracoesFilho</java.lang.String>
+   <java.lang.String>DELETE FROM layout_configuracoes WHERE layout_configuracoes_id_referencia=?</java.lang.String> 
+  </java.lang.Object>
+     
+
+</java.util.Map>
+
+

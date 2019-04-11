@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java.util.Map>
+    <java.lang.Object>
+     <java.lang.String>obterLayoutPorID</java.lang.String>
+     <java.lang.String> select tipo_layout_id,tipo_layout_descricao from tipo_layout where tipo_layout_id=?                
+     </java.lang.String> 
+    </java.lang.Object>        
+   <java.lang.Object>
+     <java.lang.String>adicionar</java.lang.String>
+      <java.lang.String>
+          insert into tipo_layout(tipo_layout_descricao) values(?)
+       </java.lang.String>
+   </java.lang.Object>
+
+   <java.lang.Object>
+     <java.lang.String>idAtual</java.lang.String>
+      <java.lang.String>
+          select currval('tipo_layout_tipo_layout_id_seq')
+       </java.lang.String>
+   </java.lang.Object>
+   
+   <java.lang.Object>
+     <java.lang.String>excluir</java.lang.String>
+      <java.lang.String>
+         delete from tipo_layout where tipo_layout_id = ?
+       </java.lang.String>
+   </java.lang.Object>
+   
+   
+    <java.lang.Object>
+     <java.lang.String>alterar</java.lang.String>
+      <java.lang.String>
+           update tipo_layout set tipo_layout_descricao=? where tipo_layout_id = ?
+       </java.lang.String>
+   </java.lang.Object>
+   
+   
+       <java.lang.Object>
+     <java.lang.String>pesquisar</java.lang.String>
+      <java.lang.String>
+          select tipo_layout_id, tipo_layout_descricao from tipo_layout 
+          where lower(tipo_layout_descricao) like ?  order by  tipo_layout_descricao
+       </java.lang.String>
+   </java.lang.Object>
+   
+   
+   
+          <java.lang.Object>
+     <java.lang.String>obterTodos</java.lang.String>
+      <java.lang.String>
+          select tipo_layout_id, tipo_layout_descricao from tipo_layout  order by  tipo_layout_descricao
+       </java.lang.String>
+   </java.lang.Object>
+   
+   
+   
+  
+   
+</java.util.Map>
+
+

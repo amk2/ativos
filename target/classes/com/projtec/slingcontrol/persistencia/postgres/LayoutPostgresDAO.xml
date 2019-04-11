@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java.util.Map>
+    <java.lang.Object>
+     <java.lang.String>obterLayoutPorID</java.lang.String>
+     <java.lang.String>
+      SELECT 
+	  layout_id,
+	  layout_descricao,    
+	  layout_nome ,
+	  tplayout.tipo_layout_id,
+	  tplayout.tipo_layout_descricao
+	  FROM 
+	  layouts l left join tipo_layout tpLayout on (l.tipo_layout_id=tplayout.tipo_layout_id)
+	  where  layout_id = ? 
+     
+     </java.lang.String> 
+    </java.lang.Object>        
+   <java.lang.Object>
+     <java.lang.String>adicionar</java.lang.String>
+      <java.lang.String>
+	        INSERT INTO 
+					  layouts (
+					  layout_nome,
+					  layout_descricao,
+					  tipo_layout_id					  
+					) VALUES (
+					  ?,
+					  ?,
+					  ?
+					);
+       </java.lang.String>
+   </java.lang.Object>
+
+   <java.lang.Object>
+     <java.lang.String>idAtual</java.lang.String>
+      <java.lang.String>
+          select currval('layouts_layout_id_seq')
+       </java.lang.String>
+   </java.lang.Object>
+   
+   <java.lang.Object>
+     <java.lang.String>excluir</java.lang.String>
+      <java.lang.String>
+         delete from layouts where layout_id = ?
+       </java.lang.String>
+   </java.lang.Object>
+   
+   
+    <java.lang.Object>
+     <java.lang.String>alterar</java.lang.String>
+      <java.lang.String>             
+			UPDATE 
+			layouts  
+			SET 
+			  layout_nome = ? , 
+			  layout_descricao = ?,
+			  tipo_layout_id = ?
+			WHERE 
+			  layout_id = ?
+       </java.lang.String>
+    </java.lang.Object>  
+    
+    
+    <java.lang.Object>
+     <java.lang.String>obterTodosComID</java.lang.String>
+      <java.lang.String>             
+			SELECT 
+            layout_id,
+            layout_descricao,
+            tp.tipo_layout_id,
+            tp.tipo_layout_descricao,
+            layout_nome
+            FROM 
+            layouts lay left join  tipo_layout tp on (lay.tipo_layout_id=tp.tipo_layout_id)
+		    where  tp.tipo_layout_id = ?
+            order by layout_nome
+	         </java.lang.String>
+    </java.lang.Object>
+    
+    
+    <java.lang.Object>
+     <java.lang.String>obterTodos</java.lang.String>
+      <java.lang.String>             
+SELECT 
+            layout_id,
+            layout_descricao,
+            tp.tipo_layout_id,
+            tp.tipo_layout_descricao,
+            layout_nome
+            FROM 
+            layouts lay left join  tipo_layout tp on (lay.tipo_layout_id=tp.tipo_layout_id)
+            order by layout_nome
+	         </java.lang.String>
+    </java.lang.Object>
+    
+    
+     <java.lang.Object>
+	     <java.lang.String>pesquisar</java.lang.String>
+	     <java.lang.String>
+	      SELECT 
+		  layout_id,
+		  layout_descricao,    
+		  layout_nome ,
+		  tplayout.tipo_layout_id,
+		  tplayout.tipo_layout_descricao
+		  FROM 
+		  layouts l left join tipo_layout tpLayout on (l.tipo_layout_id=tplayout.tipo_layout_id)
+		 where 1=1	     
+	     </java.lang.String> 
+    </java.lang.Object>    
+    
+    <java.lang.Object>
+	     <java.lang.String>pesquisarPorOrdem</java.lang.String>
+	     <java.lang.String>
+	      SELECT 
+		  layout_id,
+		  layout_descricao,    
+		  layout_nome ,
+		  tplayout.tipo_layout_id,
+		  tplayout.tipo_layout_descricao
+		  FROM 
+		  layouts l left join tipo_layout tpLayout on (l.tipo_layout_id=tplayout.tipo_layout_id)
+		  where  lower(layout_nome) like ?  or lower(layout_descricao) like ?  or  tplayout.tipo_layout_id=? order by layout_nome
+	     
+	     </java.lang.String> 
+    </java.lang.Object>
+   
+    <java.lang.Object>
+    	<java.lang.String>obterTodosFiltroLayout</java.lang.String> 
+  		<java.lang.String>select layout_id, layout_descricao, tp.tipo_layout_id, tp.tipo_layout_descricao, layout_nome FROM layouts lay left join  tipo_layout tp on (lay.tipo_layout_id=tp.tipo_layout_id)  where tipo_layout_descricao = ? order by layout_nome</java.lang.String> 
+  	</java.lang.Object>  
+    
+</java.util.Map>
+
+

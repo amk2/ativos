@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java.util.Map>
+  <java.lang.Object>
+     <java.lang.String>obterDemandaPorID</java.lang.String> 
+  <java.lang.String>select d.demanda_id, d.layout_id, d.tipo_demanda_id, 
+                    d.demanda_id_referencia, 
+                    sd.status_demanda_id, sd.status_demanda_descricao , d.demanda_dt_criacao
+                    from demandas d
+                         inner join status_demanda sd  on ( d.status_demanda_id=sd.status_demanda_id )
+                    where demanda_id = ? 
+  </java.lang.String> 
+  </java.lang.Object>
+- <java.lang.Object>
+  <java.lang.String>adicionar</java.lang.String> 
+  <java.lang.String>
+    INSERT INTO demandas(demanda_id_referencia, layout_id, tipo_demanda_id,status_demanda_id , demanda_dt_criacao)
+    VALUES (?, ?, ?, ?, now());  
+  </java.lang.String> 
+  </java.lang.Object>
+- <java.lang.Object>
+  <java.lang.String>idAtual</java.lang.String> 
+  <java.lang.String>select currval('demandas_demanda_id_seq')</java.lang.String> 
+  </java.lang.Object>
+- <java.lang.Object>
+  <java.lang.String>excluir</java.lang.String> 
+  <java.lang.String>delete from demandas where demanda_id =?</java.lang.String> 
+  </java.lang.Object>
+- <java.lang.Object>
+  <java.lang.String>alterar</java.lang.String> 
+  <java.lang.String>
+	   UPDATE demandas
+	   SET demanda_id_referencia=?, layout_id=?, tipo_demanda_id=?, 
+	       status_demanda_id=?
+	   WHERE  demanda_id = ?
+   </java.lang.String> 
+  </java.lang.Object>
+  
+- <java.lang.Object>
+  <java.lang.String>pesquisar</java.lang.String> 
+  <java.lang.String>select ativos_id,ativos_id_pai , estoque_id, layout_id ,tipo_demanda_id ,demanda_status, demanda_id_referencia from demandas </java.lang.String> 
+  </java.lang.Object>
+   
+   <java.lang.Object>
+     <java.lang.String>pesquisarDemandasMovimento</java.lang.String> 
+     <java.lang.String>   
+                          select distinct dem.demanda_id,dem.layout_id , dem.tipo_demanda_id,sd.status_demanda_id, 
+                          dem.demanda_id_referencia , dem.demanda_dt_criacao ,sd.status_demanda_descricao
+                          from demandas dem
+                          inner join demandas_item_ativo demItem on (dem.demanda_id= demItem.demanda_id) 
+                          inner join status_demanda sd  on ( dem.status_demanda_id=sd.status_demanda_id )
+                          where 1=1
+     </java.lang.String> 
+   </java.lang.Object>
+   
+  <java.lang.Object>
+    <java.lang.String>alterarStatusDemanda</java.lang.String> 
+    <java.lang.String>update demandas set status_demanda_id = ?  where demanda_id = ?</java.lang.String> 
+  </java.lang.Object>   
+  
+  <java.lang.Object>
+    <java.lang.String>verificarItensLocalOrigem</java.lang.String> 
+    <java.lang.String>
+     SELECT demItem.demanda_id, demItem.itens_ativo_id, demItem.locais_destino, demItem.locais_origem , item.locais_id as local
+     FROM demandas_item_ativo demItem
+       inner join itens_ativo item  on (demItem.itens_ativo_id= item.itens_ativo_id)   
+     WHERE demanda_id=? and demItem.locais_origem!=item.locais_id
+    </java.lang.String> 
+  </java.lang.Object>
+   
+
+     
+</java.util.Map>
+
+

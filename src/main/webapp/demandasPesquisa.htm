@@ -1,0 +1,141 @@
+
+<script type="text/javascript">
+
+
+
+
+
+$(function(){ 
+	 $("#clickItem").fancybox({
+		'width'				: '60%',
+		'height'			: '85%',
+		'autoScale'			: true,
+		'transitionIn'	    : 'elastic',
+		'transitionOut'	    : 'elastic',
+		'type'				: 'iframe',			 
+		'titlePosition'	    : 'inside',
+		'showCloseButton'   : true 	
+     });
+	 
+	  jQuery("#selecionarDemanda").click(function() {
+			salvarSelecionado();
+			return false;
+		});
+}); 
+
+	
+	
+	  function salvarSelecionado() 
+	  {
+		
+		var demandaId =  jQuery('input:radio[name=selectItem]:checked').val();
+		
+		if (demandaId==undefined)
+		{
+		    alert("Selecionar uma Demanda");
+		    return;
+		}
+		parent.salvarDemandaSelecionada(demandaId);
+	  } 
+	
+    function verItens(idDemanda) 
+    {        
+       callFancy("$context/demandaItensAtivo.htm?demanda=" + idDemanda );
+       
+       return false;
+    }
+    
+    function callFancy(my_href) 
+    {
+    	var j1 = document.getElementById("clickItem");
+    	j1.href = my_href;
+    	
+    	//alert(my_href);
+    	$("#clickItem").trigger("click");
+    }
+				
+</script>
+
+<div id="hidden_clicker" style="display:none;">
+<a id="clickItem" href="#" >Hidden</a>
+</div>
+
+ 
+    #if($mesgPesquisa && 	$mesgPesquisa ne "" )  
+   <div id="panelMensagemErro" style="color:red; font-size:10pt; border: red 1px solid; width:99%; text-align: center; height: 20px; font-weight: bold;" >
+           <p> $mesgPesquisa </p>
+    </div>
+    #end    
+ 
+	#if($mesgAtualizarDaURL && $mesgAtualizarDaURL ne "" )  
+		<div id="panelMensagemSucesso" style="color:blue; font-size:10pt; border: blue 1px solid; width:99%; text-align: center; height: 20px; font-weight: bold;" >
+			<p> $mesgAtualizarDaURL </p>
+		</div>
+	#end
+ 
+ 	#writeFormPesquisaDemandaMov($demandasPesquisaForm)  
+    
+	<br>
+ 
+		 
+	<div align="center">  
+	    
+		#if ($mesg)
+		 <p class="infoMsg"> $mesg </p>
+		#end
+	    
+	    
+	    #foreach( $key in $mapListGridView.keySet() )
+	       
+	       <table   style="width: 99.4%;"  class="blue2">
+	             <thead>
+	        #set( $grupo = $mapListGridView.get($key))
+	        <tr>         
+	          <th colspan='$grupo.nomes.size()'   >$mapListGridView.get($key).titulo</th>
+	        </tr>        
+	        <tr> 
+	    
+	        #foreach ($keyNm in $grupo.nomes.keySet())
+	          
+	             <th >
+	               <!-- $keyNm --> $grupo.nomes.get($keyNm)</li> 
+	             </th>
+	       
+	        #end 
+	       
+	        </tr> 
+	        </thead>  
+	        <tbody>    
+	        #foreach ($linha in $grupo.linhasValores)
+	         <tr>   
+	             
+	            #foreach ($keyNm in $grupo.nomes.keySet())
+	        	  
+	             <td>
+	               <!-- $keyNm --> #if ( $linha.get($keyNm) ) $linha.get($keyNm) #end
+	             </td>
+	       
+	               #end               
+	              
+	         </tr> 
+	         
+	         
+	           
+	        #end  
+	          <tr>
+	         
+	          <td colspan='$grupo.nomes.size()' > </td>
+	        </tr>  
+	         </tbody>
+	       
+	       </table> 
+	      <br/>
+	           
+	     #end
+  
+         #if($exibirSelecao && 	$exibirSelecao &&  $mapListGridView.size() > 0  )  
+	        <p align="center"><input href="javascript:void(0)" id="selecionarDemanda" 
+	    	    src="$context/resources/images/btnAdicionar.png" type="image"> &nbsp; </p>
+ 	     #end  
+	
+	</div>

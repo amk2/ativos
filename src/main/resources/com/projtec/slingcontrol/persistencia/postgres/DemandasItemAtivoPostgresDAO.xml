@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java.util.Map>
+    	<java.lang.Object>
+		<java.lang.String>obterItensAtivoDemanda</java.lang.String> 
+		<java.lang.String>
+         SELECT demItem.demanda_id, atv.ativos_id, la.layout_nome,la.layout_id,
+	       demItem.itens_ativo_id,itens.itens_ativo_identificacao,
+	       demItem.locais_destino, locDestino.locais_nome as destNome, 
+	       locais_origem,locOrigem.locais_nome as origNome , itens.locais_id as localAtual,
+	       locAtual.locais_nome  as localAtualNome
+	       FROM demandas_item_ativo demItem	   
+	    inner join itens_ativo itens on(itens.itens_ativo_id=demItem.itens_ativo_id)
+	    inner join ativos atv on( atv.ativos_id=itens.ativos_id)
+	    inner join layouts la on( atv.layout_id=la.layout_id)
+	    left join locais locDestino on (demItem.locais_destino=locDestino.locais_id)
+	    left join locais locOrigem on (demItem.locais_origem=locOrigem.locais_id)
+	    left join locais locAtual on(itens.locais_id=locAtual.locais_id)
+	    WHERE demItem.demanda_id=?
+		</java.lang.String> 
+  	</java.lang.Object>
+  	
+    <java.lang.Object>
+		<java.lang.String>adicionar</java.lang.String> 
+		<java.lang.String>
+			   INSERT INTO demandas_item_ativo(
+		            demanda_id, itens_ativo_id, locais_destino, locais_origem)
+		        VALUES (?, ?, ?, ?);
+		</java.lang.String> 
+   	</java.lang.Object>
+  	
+    <java.lang.Object>
+		<java.lang.String>incluirDemandaItemAtivo</java.lang.String> 
+		<java.lang.String>
+			   INSERT INTO demandas_item_ativo(
+		            demanda_id, itens_ativo_id)
+		        VALUES (?, ?);
+		</java.lang.String> 
+   	</java.lang.Object>
+    	
+  	
+  	 <java.lang.Object>
+		<java.lang.String>excluirPorDemanda</java.lang.String> 
+		<java.lang.String>
+	   	 DELETE FROM demandas_item_ativo
+         WHERE demanda_id=?	      
+		</java.lang.String> 
+  	</java.lang.Object>
+  	
+  	
+  	<java.lang.Object>
+		<java.lang.String>excluirItemTroca</java.lang.String> 
+		<java.lang.String>
+	   	 DELETE FROM demandas_item_ativo
+         WHERE demanda_id=?	 and itens_ativo_id =?
+		</java.lang.String> 
+  	</java.lang.Object>  	
+  	
+  	<java.lang.Object>
+		<java.lang.String>incluirItensDemandaTroca</java.lang.String> 
+		<java.lang.String>
+	   	 INSERT INTO demandas_item_ativo_troca(demanda_id , itens_ativos_id_depois, 
+	   	                                       itens_ativos_id_antes,demandas_item_ativo_troca_obs, demandas_item_ativo_troca_dt) 
+	   	 VALUES (?, ?, ?, ? ,now())
+        </java.lang.String> 
+  	</java.lang.Object>
+  	
+  	<java.lang.Object>
+		<java.lang.String>existeItemDemanda</java.lang.String> 
+		<java.lang.String>
+	   	  SELECT demItem.demanda_id 
+	       FROM demandas_item_ativo demItem	 
+	        WHERE demItem.demanda_id=? and  demItem.itens_ativo_id=?
+        </java.lang.String> 
+  	</java.lang.Object>
+
+
+  	<java.lang.Object>
+		<java.lang.String>verificarSePodeFinalizar</java.lang.String> 
+		<java.lang.String>
+				select a.*, b.*
+				from 
+					demandas_item_ativo a, 
+					itens_ativo b
+				where
+					a.locais_destino = b.locais_id
+					and
+					a.itens_ativo_id = b.itens_ativo_id 
+					and
+					a.demanda_id=?
+        </java.lang.String> 
+  	</java.lang.Object>
+
+
+
+  	
+</java.util.Map>
+
+
+
+

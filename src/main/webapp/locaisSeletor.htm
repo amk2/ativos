@@ -1,0 +1,26 @@
+<script type="text/javascript">
+	$(function() {
+		jQuery("#adicionar").click( function() {
+			var nomeEstoque = $("#selectEstoque").val().split(";")[1];
+			var nomeLocal = $("#selectLocal").val().split(";")[1];
+			var idLocal = $("#selectLocal").val().split(";")[0];
+			if(nomeEstoque == undefined) {
+				alert("Selecione um Estoque!");
+				return;
+			}
+			if(nomeLocal == undefined) {
+				alert("Selecione um Local!");
+				return;
+			}
+			//alert("FOI!! " + nomeEstoque + "  " + nomeLocal + "  " + idLocal);
+			parent.salvarLocais(nomeEstoque + ";" + nomeLocal + ";" + idLocal);
+		});
+	});
+</script>
+#writeFormLocaisSeletor($form)
+<div id="principalPesquisa">
+	<p align="right">
+		<input id="adicionar" src="$context/resources/images/btnAdicionar.png" type="image" /> &nbsp; &nbsp;
+		<input id="limpar" src="$context/resources/images/btnLimpar.png" type="image" />
+	</p>
+</div>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java.util.Map> 
+
+  <java.lang.Object> 
+     <java.lang.String>obterTodos</java.lang.String>
+      <java.lang.String>
+          SELECT status_demanda_id,  status_demanda_descricao FROM status_demanda order by status_demanda_descricao ;
+       </java.lang.String>
+   </java.lang.Object>
+   
+   <java.lang.Object> 
+     <java.lang.String>obterStatusPorID</java.lang.String>
+      <java.lang.String>
+          SELECT status_demanda_id, status_demanda_descricao FROM status_demanda where status_demanda_id=? 
+       </java.lang.String>
+   </java.lang.Object>
+   
+</java.util.Map>

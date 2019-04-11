@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java.util.Map>
+    <java.lang.Object>
+     <java.lang.String>obterTipoMovimentoAtivoPorID</java.lang.String>
+     <java.lang.String>     
+     select  tipo_movimento_ativo_id, tipo_movimento_ativo_descricao from tipo_movimento_ativo where tipo_movimento_ativo_id=?     
+     </java.lang.String> 
+    </java.lang.Object>        
+   <java.lang.Object>
+     <java.lang.String>adicionar</java.lang.String>
+      <java.lang.String>
+          insert into tipo_movimento_ativo(tipo_movimento_ativo_descricao) values(?)
+       </java.lang.String>
+   </java.lang.Object>
+ <java.lang.Object>
+     <java.lang.String>idAtual</java.lang.String>
+      <java.lang.String>
+          select currval('tipo_movimento_ativo_tipo_movimento_ativo_id_seq')
+       </java.lang.String>
+   </java.lang.Object>
+  <java.lang.Object>
+     <java.lang.String>excluir</java.lang.String>
+      <java.lang.String>
+         delete from tipo_movimento_ativo where tipo_movimento_ativo_id= ?
+       </java.lang.String>
+   </java.lang.Object>
+    <java.lang.Object>
+     <java.lang.String>alterar</java.lang.String>
+      <java.lang.String>
+          update tipo_movimento_ativo set tipo_movimento_ativo_descricao=?  where tipo_movimento_ativo_id = ?
+       </java.lang.String>
+      </java.lang.Object>
+    <java.lang.Object>
+     <java.lang.String>pesquisar</java.lang.String>
+      <java.lang.String>
+          select tipo_movimento_ativo_id,tipo_movimento_ativo_descricao from tipo_movimento_ativo 
+          where lower(tipo_movimento_ativo_descricao) like ? order by tipo_movimento_ativo_descricao  
+       </java.lang.String>
+   </java.lang.Object>
+   <java.lang.Object>
+     <java.lang.String>obterTodos</java.lang.String>
+      <java.lang.String>
+          select tipo_movimento_ativo_id,  tipo_movimento_ativo_descricao from tipo_movimento_ativo order by tipo_movimento_ativo_descricao 
+       </java.lang.String>
+   </java.lang.Object>
+</java.util.Map>

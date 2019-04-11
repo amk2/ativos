@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java.util.Map>
+    <java.lang.Object>
+     <java.lang.String>obterImagensPorID</java.lang.String>
+     <java.lang.String> select imagens_id,imagens_nome,imagens_descricao,imagens_arq ,imagens_extensao  from imagens where imagens_id=?                
+     </java.lang.String> 
+    </java.lang.Object>        
+   <java.lang.Object>
+     <java.lang.String>adicionar</java.lang.String>
+      <java.lang.String>
+          insert into imagens(imagens_nome, imagens_descricao, imagens_arq, imagens_extensao, imagens_novo) values(?,?,?,?,?)
+       </java.lang.String>
+   </java.lang.Object>
+
+   <java.lang.Object>
+     <java.lang.String>idAtual</java.lang.String>
+      <java.lang.String>
+         
+          select currval('imagens_imagens_id_seq')
+       </java.lang.String>
+   </java.lang.Object>
+   
+   <java.lang.Object>
+     <java.lang.String>excluir</java.lang.String>
+      <java.lang.String>
+         delete from imagens where imagens_id = ?
+       </java.lang.String>
+   </java.lang.Object>
+   
+   
+    <java.lang.Object>
+     <java.lang.String>alterarNomeDesc</java.lang.String>
+      <java.lang.String>
+      		
+           update imagens set  imagens_nome=? ,imagens_descricao=? where imagens_id = ?
+       </java.lang.String>
+   </java.lang.Object>
+   
+   <java.lang.Object>
+     <java.lang.String>alterarImg</java.lang.String>
+      <java.lang.String>
+           update imagens set  imagens_arq=?, imagens_extensao=?, imagens_novo=? where imagens_id = ?
+       </java.lang.String>
+   </java.lang.Object>
+   
+   
+       <java.lang.Object>
+     <java.lang.String>pesquisar</java.lang.String>
+      <java.lang.String>
+          select imagens_id,imagens_nome, imagens_descricao ,imagens_arq , imagens_extensao  from imagens where lower(imagens_nome) like ? AND lower(imagens_descricao) like ?  order by  imagens_nome
+       </java.lang.String>
+   </java.lang.Object>
+
+
+		<java.lang.Object>
+     <java.lang.String>obterBytePorID</java.lang.String>
+      <java.lang.String>
+          SELECT imagens_arq  FROM imagens where imagens_id = ?
+       </java.lang.String>
+   </java.lang.Object>
+   
+          <java.lang.Object>
+     <java.lang.String>obterTodos</java.lang.String>
+      <java.lang.String>
+          select imagens_id, imagens_nome, imagens_descricao,imagens_arq ,imagens_extensao from imagens  order by  imagens_nome
+       </java.lang.String>
+   </java.lang.Object>
+   
+   
+</java.util.Map>
+
+

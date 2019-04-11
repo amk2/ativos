@@ -1,0 +1,130 @@
+<script src="$context/resources/js/fechar-janela.js" type="text/javascript"></script>
+<script type="text/javascript">
+	$(function(){ 
+		$(".exibirItensAtivo").fancybox({
+			'width'				: '60%',
+			'height'			: '85%',
+			'autoScale'			: true,
+			'transitionIn'	    : 'elastic',
+			'transitionOut'	    : 'elastic',
+			'type'				: 'iframe',
+			'titlePosition'	    : 'inside',
+			'showCloseButton'   : true
+		});
+	});
+	$(function(){ 
+		$("#pesquisarAtivos").fancybox({
+			'width'				: '60%',
+			'height'			: '85%',
+			'autoScale'			: true,
+			'transitionIn'	    : 'elastic',
+			'transitionOut'	    : 'elastic',
+			'type'				: 'iframe',
+			'titlePosition'	    : 'inside',
+			'showCloseButton'   : true
+		});
+		
+		
+		 $("#clickItem").fancybox({
+				'width'				: '60%',
+				'height'			: '85%',
+				'autoScale'			: true,
+				'transitionIn'	    : 'elastic',
+				'transitionOut'	    : 'elastic',
+				'type'				: 'iframe',			 
+				'titlePosition'	    : 'inside',
+				'showCloseButton'   : true 	
+		     });
+	});
+	function salvarId(selecionados) {
+		$('#identificacaoAtivo').val(selecionados);
+        fecharJanelaPesquisaAtivos();
+	 }
+	
+	
+	function exibirItensFilhos(idAtivos) {
+			
+	     callFancy("$context/consultarEstoqueFilhos.htm?ativo=" + idAtivos );
+	       
+	     return false;
+	 }
+	
+	
+	function callFancy(my_href) 
+    {
+    	var j1 = document.getElementById("clickItem");
+    	j1.href = my_href;
+    	
+    	//alert(my_href);
+    	$("#clickItem").trigger("click");
+    }
+	
+</script>
+<div id="hidden_clicker" style="display:none;">
+<a id="clickItem" href="#" >Hidden</a>
+</div>
+ 
+ 
+    #if($mesgPesquisa && 	$mesgPesquisa ne "" )  
+   <div id="panelMensagemErro" style="color:red; font-size:10pt; border: red 1px solid; width:99%; text-align: center; height: 20px; font-weight: bold;" >
+           <p> $mesgPesquisa </p>
+    </div>
+    #end    
+ 		
+
+#writeFormConsultaEstoque(${formEstoque})
+<br>
+<br>
+
+  <div align="center">  
+    
+    #foreach( $key in $mapEstoqueView.keySet() )
+       
+       <table   style="width: 99.4%;"  class="blue2">
+             <thead>
+        #set( $grupo = $mapEstoqueView.get($key))
+        <tr>         
+          <th colspan='$grupo.nomes.size()'   >$mapEstoqueView.get($key).titulo</th>
+        </tr>        
+        <tr> 
+    
+        #foreach ($keyNm in $grupo.nomes.keySet())
+          
+             <th >
+               <!-- $keyNm --> $grupo.nomes.get($keyNm)</li> 
+             </th>
+       
+        #end 
+       
+        </tr> 
+        </thead>  
+        <tbody>    
+        #foreach ($linha in $grupo.linhasValores)
+         <tr>   
+             
+            #foreach ($keyNm in $grupo.nomes.keySet())
+          
+             <td>
+               <!-- $keyNm --> $linha.get($keyNm)
+             </td>
+       
+               #end               
+              
+         </tr> 
+        #end  
+          <tr>
+         
+          <td colspan='$grupo.nomes.size()' >   Total de itens: $mapEstoqueView.get($key).total</td>
+        </tr>  
+         </tbody>
+       
+       </table> 
+      <br/>
+           
+     #end
+
+</div>
+
+
+
+   

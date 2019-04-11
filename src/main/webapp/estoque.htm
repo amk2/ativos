@@ -1,0 +1,24 @@
+
+ #writeFormCrud(${formEstoque})
+ 
+ ##$form.fields.nome.error 
+ ##if (${form.fields.nome.error})
+    ## $form.fields.nome.error 
+ ##end    
+  ##${formEstoque.fields}  
+  ##if (${form.fields.nome.error})
+    ## $form.fields.nome.error 
+ ##end   
+ 
+ 
+ 
+  ##${formEstoque}
+  
+  <br>
+    
+  <SPAN style="width: 90%;">
+	#if($showGrid)
+	  $grid 
+	#end  
+  </SPAN>
+

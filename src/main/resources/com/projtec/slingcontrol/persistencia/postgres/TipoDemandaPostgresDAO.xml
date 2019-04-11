@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java.util.Map>
+    <java.lang.Object>
+     <java.lang.String>obterTipoDemandaPorID</java.lang.String>
+     <java.lang.String>     
+     select  tipo_demanda_id, tipo_demanda_descricao from tipo_demanda where tipo_demanda_id=?     
+     </java.lang.String> 
+    </java.lang.Object>        
+   <java.lang.Object>
+     <java.lang.String>adicionar</java.lang.String>
+      <java.lang.String>
+          insert into tipo_demanda(tipo_demanda_descricao) values(?)
+       </java.lang.String>
+   </java.lang.Object>
+
+   <java.lang.Object>
+     <java.lang.String>idAtual</java.lang.String>
+      <java.lang.String>
+          select currval('tipo_demanda_tipo_demanda_id_seq')
+       </java.lang.String>
+   </java.lang.Object>
+   
+   <java.lang.Object>
+     <java.lang.String>excluir</java.lang.String>
+      <java.lang.String>
+         delete from tipo_demanda where tipo_demanda_id = ?
+       </java.lang.String>
+   </java.lang.Object>
+   
+   
+    <java.lang.Object>
+     <java.lang.String>alterar</java.lang.String>
+      <java.lang.String>
+          update tipo_demanda set tipo_demanda_descricao=?  where tipo_demanda_id = ?
+       </java.lang.String>
+   </java.lang.Object>
+   
+   
+       <java.lang.Object>
+     <java.lang.String>pesquisar</java.lang.String>
+      <java.lang.String>
+          select tipo_demanda_id, tipo_demanda_descricao from tipo_demanda 
+          where lower(tipo_demanda_descricao) like ? order by  tipo_demanda_descricao 
+       </java.lang.String>
+   </java.lang.Object>
+   <java.lang.Object>
+     <java.lang.String>obterTodos</java.lang.String>
+      <java.lang.String>
+          select tipo_demanda_id,  tipo_demanda_descricao from tipo_demanda  order by  tipo_demanda_descricao 
+       </java.lang.String>
+   </java.lang.Object>
+</java.util.Map>

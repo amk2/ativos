@@ -1,0 +1,412 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="$context/resources/js/fechar-janela.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+	//$(function(){
+	jQuery.noConflict();
+
+	jQuery(document).ready(function($){
+
+			$(".imgID").fancybox({
+				'width'				: '60%', 
+				'height'			: '85%',
+				'autoScale'			: true,  
+				'transitionIn'	    : 'elastic', 
+				'transitionOut'	    : 'elastic', 
+					'type'				: 'iframe', 
+					'titlePosition'	    : 'inside', 
+					'showCloseButton'   : true 
+	        	});
+ 	        
+		
+			$("#pesquisarAtivos").fancybox({
+				'width'				: '90%',
+				'height'			: '85%',
+				'autoScale'			: true,
+				'transitionIn'	    : 'fade',
+				'transitionOut'	    : 'fade',
+				'type'				: 'iframe',
+				'titleShow'         : false, 
+				'showCloseButton'   : true,
+				'onComplete'		: function() {
+					$("#fancybox-title").css({
+						'top':'0px', 
+						'bottom':'auto', 
+						'padding-top':'10px'});
+				}
+			    });
+						
+			$("#ativosEstrutura").fancybox({
+				'width'				: '90%',
+				'height'			: '85%',
+				'autoScale'			: true,
+				'transitionIn'	    : 'fade',
+				'transitionOut'	    : 'fade',
+				'type'				: 'iframe',
+				'titlePosition'	    : 'inside',
+				'showCloseButton'   : true 
+			    });
+
+			// imageFields();
+			cargaDependenciaAtivos();
+			
+			jQuery("#pesquisarAtivosBt").click(function(event){
+	            //pesquisarAtivosRemote(event);
+	           pesquisarAtivosDinamicoRemote(event);
+			   return false;
+	        });
+				  
+	});
+
+	/*function imageFields() {
+		if(document.getElementsByName("imgName") != undefined) {
+			var imgTxs = document.getElementsByName("imgName"); 
+			// var imgBts = document.getElementsByName("imgFieldBt");
+			var tam = imgTxs.length;
+			for(var i = 0; i < tam; i++) {
+				imgTxs[i].id = "img" + i;
+				//imgBts[i].id = "img" + i;
+			}
+		}
+	} */
+
+	function salvarImagem(obj, id) {
+
+     	var img = obj.IMAGEM;
+
+     	jQuery('#' + id).val(obj.NOME);
+     	
+     	jQuery('#imgField' + id).val(img.substring(img.indexOf('__@') + 3, img.lastIndexOf('.')));
+     	jQuery('#imgThumb' + id).empty();
+     	jQuery('#imgThumb' + id).append(img.replace('../',''));
+     	if(jQuery('#imageFields').val().indexOf('#imgField' + id) == -1) {
+     		jQuery('#imageFields').val(jQuery('#imageFields').val() + 'imgField' + id + ';');
+        }
+     	fecharJanelaPesquisaAtivos();
+	}
+	
+	function salvarSelecionados(selecionados) 
+	{ 
+	    var listaView ="";    
+		var url = '$context/ativos.htm?pageAction=obterAtivos' ; 
+		var params="";
+
+		for (i in selecionados) 
+		{             
+		  params = params + "id=" + selecionados[i]  + "&" ;  				
+	    }
+		
+        jQuery.post(url, params, function(data) 
+		{
+			
+			var result=eval("("+ data + ")");  
+	        var lista = result.listaAtivos;
+	        var listaView="";
+
+	        for (var i=0; i < lista.length; i++)
+		   	{
+            	var obj = lista[i];           
+
+           	 	listaView = listaView  + "<div  id='" + obj.id + "'> <b>" +  obj.id  + " - " + obj.nome 
+	        	                       + "</b> <a href='javascript:remover(" + obj.id + ")' id='" + obj.id + "' > remover </a> " 
+	        	                       + "<input type=\"hidden\" name=\"ativosDependencia\" id=\"ativosForm_ativosDependencia_"
+									   + obj.id + "\" "
+									   +  "value=\"" + obj.id + "\"/> </div>";
+																																					   
+           	}	
+
+			jQuery('#listaAtivos').append(listaView);        
+          	fecharJanelaPesquisaAtivos();	        							 
+              
+        }, {dataType:'json'});	
+	  
+	 }
+	
+	function cargaDependenciaAtivos()
+	{
+
+		var vlID = 0;
+		
+		if (jQuery('#ativosForm_id')!=null ) {  
+			vlID = jQuery('#ativosForm_id').val();
+		}
+		
+		if(vlID > 0 )
+		{
+			var qtd = jQuery('#ativosDependenciaEditQTD').val();
+			var dependentes = new Array();
+			for (var i=1 ; i <= qtd ; i++ )
+			{    
+				dependentes[i-1] =  jQuery('#ativosDependenciaEdit_' + i).val();
+						
+			}	
+
+			salvarSelecionados(dependentes);
+			
+		}
+	}
+	
+	function remover(idAtivo)
+	{
+	  //alert( " remover .... " + idAtivo ) ;
+	  jQuery('#'+ idAtivo).remove();
+	}
+	
+	function pesquisarAtivosDinamicoRemote(event)
+	{
+		      
+		    var link = jQuery('#pesquisarAtivosBt');
+		    var vl = jQuery('#ativosForm_actionLink').val('Pesquisar');
+			var form = jQuery('#ativosForm');
+			
+		    var formData = form.serialize();
+		    //formData +='&' + form.attr('id') + '=1';	
+			formData +='&' + link.attr('id') + '=1';
+            
+			//formData +='&actionLink=Pesquisar';			
+ 			
+            var url = link.attr('href');
+		       
+		       //
+	           /*
+	            var link = jQuery('#pesquisarAtivosBt');
+	          
+				var form = jQuery('#ativosForm');
+				
+			    var formData = form.serialize();
+				formData +='&' + link.attr('id') + '=1';
+				formData +='&' + 'actionLink=pesquisarLink'; 
+				
+				
+				alert(formData);
+	 			
+	            var url = '$context/ativos.htm';
+	            */
+	            
+	            jQuery.post(url, formData, function(data) {         	
+	            	
+	            	// alert(data);
+	            	 if(data.mesg=="0")
+	                 {
+	                   
+	                 	jQuery("#panelMesgResultadoVazio").show("slow");
+	                 	jQuery("#divGridAtivos").hide("slow");	                    	  	
+	         		
+	                 }else
+	                 {
+	                	 jQuery("#panelMesgResultadoVazio").hide("slow"); 	                	   
+	                	 montarGrid(data); 	                     
+	                	 jQuery("#divGridAtivos").show("slow");                     
+	                 	 
+	                 }
+	            	 
+	            
+			    });
+	            	 
+	  }
+	       
+	  function montarGrid(result)
+	  {
+		  
+		      //var result=eval("("+ data + ")");  
+		      colD =  result.gridModel ;			  
+              colN = result.colNames;
+              colM = result.colModel;
+	          //dependencias 
+	          colN.push('Estrutura');
+				
+	          var objEstruturaModel = {
+						"editable" : true,
+						"edittype" : "text",
+						"index" : "estrutura",
+						"jsonmap" : "estrutura",
+						"key" : false,
+						"name" : "estrutura",
+						"resizable" : true,
+						"search" : false,
+						"sortable" : true,
+						"width" : 120,
+						"formatter" :"showlink"
+					};
+	            
+	           colM.push(objEstruturaModel);
+	        	
+           
+           //acao  - botoes 
+           colN.push('A&ccedil;&otilde;es');
+           
+       	  var objAcaoModel = {
+					"editable" : true,
+					"edittype" : "text",
+					"index" : "acao",
+					"jsonmap" : "acao",
+					"key" : false,
+					"name" : "acao",
+					"resizable" : true,
+					"search" : false,
+					"sortable" : true,
+					"width" : 240
+					
+				};		 
+       	
+       	   colM.push(objAcaoModel);         
+     	
+       	
+
+           jQuery("#listGridAtivos").jqGrid({
+             
+              jsonReader : {
+                 repeatitems: false,
+                 root:"dataset",
+                 cell: "",
+                 id: "0"
+               },
+
+               datatype: 'jsonstring',
+               mtype: 'POST',
+               datastr : colD,
+               colNames:colN,
+               colModel :colM,
+               pager: jQuery('#pagerlistGridAtivos'),
+               rowNum: 5,
+               rowList: [5, 10, 20, 50],
+               viewrecords: true,
+				  multiselect: false,
+               //loadComplete: function(data){alert('loaded');},
+               loadError: function(xhr,status,error){alert('error');},
+               afterInsertRow : function(
+							rowid, rowdata, rowelem) {
+					
+             	    //alert(rowid);
+             	    var acaoBt = "" ; 
+             	    acaoBt = acaoBt + "<input style='height:22px;width:100px;'  type='button' value='Editar' " +
+                                         "onclick=\"editarAtivo(" + rowid + ")\" />";   
+             	 
+             	    acaoBt = acaoBt  + " | " ; 
+             	    acaoBt =  acaoBt + "<input style='height:22px;width:100px;'  type='button' value='Remover' " +
+                                        "onclick=\"removerAtivo(" + rowid + ")\" />";  
+             	    
+             	    var linkDependencia = "" ; 
+             	    
+             	    linkDependencia = "<input style='height:22px;width:60px;'  type='button' value='[+]' " +
+             	                      "onclick=\"exibirEstrutura(" + rowid + ")\" />";  
+             	 
+				
+					jQuery(this)
+							.jqGrid(
+									'setRowData',
+									rowid,
+									{
+										acao:  acaoBt,
+										estrutura: linkDependencia
+										
+
+									});
+
+					}
+           
+           });		 
+			
+			 //var objResult = eval("("+ data + ")");  
+         // grid.addJSONData(objResult); 							 
+               
+      } 
+	 
+	 
+	  function exibirEstrutura(idAtivo) 
+	  {    
+	    	var j1 = document.getElementById("ativosEstrutura");
+	    	j1.href = "$context/ativosEstrutura.htm?idAtivo=" + idAtivo;	    	
+	    	//alert(my_href);
+	    	jQuery("#ativosEstrutura").trigger("click");
+	    	
+	       return false;
+	  }
+	  
+	  
+	  function editarAtivo(idAtivo) 
+	  {    
+	       window.location = "$context/ativos.htm?actionLink=edit&value=" +  idAtivo;    	
+	       return true;
+	  }
+	  
+	  function removerAtivo(idAtivo) 
+	  {    
+		  var ok=window.confirm("Deseja realmente Remover ?")
+		  if (ok) {
+			  window.location = "$context/ativos.htm?actionLink=delete&value=" +  idAtivo;  
+		  }
+		  
+	       return true;
+	  }
+	  
+	   
+</script>
+
+#if($mensagemErro && $mensagemErro ne "" )  
+	<div id="panelMensagemErro" style="color:red; font-size:10pt; border: red 1px solid; width:99%; text-align: center; height: 20px; font-weight: bold;" >
+		<p> $mensagemErro </p>
+	</div>
+#end
+
+#if($mensagemSucesso && $mensagemSucesso ne "" )  
+	<div id="panelMensagemSucesso" style="color:blue; font-size:10pt; border: blue 1px solid; width:99%; text-align: center; height: 20px; font-weight: bold;" >
+		<p> $mensagemSucesso </p>
+	</div>
+#end
+
+#writeFormAtivos(${ativosForm})
+
+
+
+
+<br/>
+<div id="hidden_clicker" style="display:none;">
+ 	<a id="ativosEstrutura" href="#" >para o fancybox funcionar exibir extrutura</a>
+</div>
+ 
+<div align="center">  
+   
+    #foreach( $key in $mapListGridView.keySet() )
+       
+		<table   style="width: 99.4%;"  class="blue2">
+        	<thead>
+		        #set( $grupo = $mapListGridView.get($key))
+		        <tr>         
+		          <th colspan='$grupo.nomes.size()'   >$mapListGridView.get($key).titulo</th>
+		        </tr>        
+		        <tr>
+			        #foreach ($keyNm in $grupo.nomes.keySet())
+			          
+			             <th >
+			             	$grupo.nomes.get($keyNm)</li> 
+			             </th>
+			       
+			        #end 
+      
+      				</tr> 
+       		</thead>  
+       		<tbody>    
+		        #foreach ($linha in $grupo.linhasValores)
+		        <tr>   
+		             
+		            #foreach ($keyNm in $grupo.nomes.keySet())
+		          
+		             <td>
+		             	#if ( $linha.get($keyNm) ) $linha.get($keyNm) #end
+		             </td>
+		       
+		            #end               
+		              
+		        </tr> 
+				#end  
+         		<tr>
+        			<td colspan='$grupo.nomes.size()' > </td>
+       			</tr>  
+       		</tbody>
+		</table> 
+     	<br/>
+
+	#end
+
+</div>

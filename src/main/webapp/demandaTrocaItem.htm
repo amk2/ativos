@@ -1,0 +1,139 @@
+<script type="text/javascript">
+
+
+
+   jQuery.noConflict();
+   jQuery(document).ready(function($){
+
+		$("#pesquisarItens").fancybox({
+			'width'				: '60%', 
+			'height'			: '85%',
+			'autoScale'			: true,  
+			'transitionIn'	    : 'elastic', 
+			'transitionOut'	    : 'elastic', 
+			'type'				: 'iframe', 
+			'titlePosition'	    : 'inside', 
+			'showCloseButton'   : true 
+        	});
+		
+		
+
+		
+	});
+
+	function salvarItemSelecionado(idItem) 
+	{		
+		//alert('chamou item : ' + idItem);
+		//jQuery.fancybox.close();
+		var url ='$context/demandaTrocaItem.htm?idItemTroca=' + idItem ;
+		 
+		
+		  $('#demandasTrocaItemForm_idItemTroca').val(idItem);
+		  
+		  var extraData = 'pageAction=onAdicionarItemTroca';
+	      jQuery.post(url, extraData, function(data) {
+	          
+	    	  //alert(data);
+	    	  document.forms[0].submit();
+	    	
+	      });
+		//return ;
+		
+	} 
+				
+</script>
+<head>
+	<script src="$context/resources/js/jquery-1.4.2.min.js" type="text/javascript"></script>
+</head>
+<body>
+	<div id="detalhes">
+	   <b>Demanda:</b> $objDemanda.layout.nome <br />
+	   <b>Status:</b> $objDemanda.statusDemanda.descricao <br />
+	   <b>Tipo:</b> $objDemanda.tipoDemanda.descricao
+	</div>
+	
+	#set( $form = $demandasTrocaItemForm )
+
+
+$form.addStyleClass("form")
+#if($mensagemErro && $mensagemErro ne "" )  
+	<div id="panelMensagemErro" style="color:red; font-size:10pt; border: red 1px solid; width:99%; text-align: center; height: 20px; font-weight: bold;" >
+		<p> $mensagemErro </p>
+	</div>
+#end
+
+<!-- #if ($form.errorFields.size()  > 0 || $form.error  )
+	<div id="msgErro" style="color:red; font-size:10pt; border: red 1px solid; width:99%; text-align: center; height: 20px; font-weight: bold;" >
+	
+	      
+	        #foreach ($field in $form.errorFields)
+	              <p><a  href="javascript:$field.focusJavaScript" class="error" >$field.error </p>
+	        #end 
+	
+	 </div>
+#end -->
+   
+$form.startTag()	
+
+<fieldset id="demandasTrocaItemForm" >
+<table  width="99" cellpadding="0" cellspacing="0" >
+
+ <tr>
+ 
+  <td colspan="2" > 
+ 	
+		#if ($objItem ) 
+		                $objItem.ativo.layout.nome : $objItem.identificacao
+		        
+		#end 
+		
+  
+  
+ </td></tr>
+  
+ <tr>
+ <td colspan="2" >
+
+    <legend id="demandasTrocaItemForm-legend">Trocar por : </legend>
+    	
+        <a id="pesquisarItens" title="Pesquisar Itens" href="$context/itensAtivosPesquisa.htm?exibirSelecao=true&idLayout=$objItem.ativo.layout.id" > 
+        	<img src="$context/resources/images/lupa.png" />
+        </a>  
+      
+		
+		#if ($objItemTroca ) 
+		                $objItemTroca.ativo.layout.nome : $objItemTroca.identificacao
+		        
+		#end 
+		
+  
+  
+  </td></tr>
+  
+   <tr>
+    <td align="right"> 
+   $form.fields.demanda 
+   $form.fields.item 
+     <span style="font-weight: 700;">$form.fields.observacao.label</span>:
+   
+    </td> 
+    <td> $form.fields.observacao</td>
+   </tr>
+  
+  
+
+
+		
+</table>
+  
+## Render buttons
+<br>
+<p align="right">
+    
+      $form.fields.Salvar  &nbsp;
+    
+     $form.fields.Cancelar &nbsp;
+      
+</fieldset>
+$form.endTag()
+</body>

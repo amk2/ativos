@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Ativos Estrutura</title>
+
+
+	<script type="text/javascript" src="$context/resources/js/_lib_jtree/jquery.js"></script>
+    <script type="text/javascript" src="$context/resources/js/_lib_jtree/jquery.cookie.js"></script>
+	<script type="text/javascript" src="$context/resources/js/_lib_jtree/jquery.hotkeys.js"></script>
+	<script type="text/javascript" src="$context/resources/js/jquery.jstree.js"></script>
+	
+  <style type="text/css">
+
+	ativosEstrutura , .ativosEstrutura input, .jstree-dnd-helper, #vakata-contextmenu { font-size:10px; font-family:Verdana; }
+	#container { width:780px; margin:10px auto; overflow:hidden; position:relative; }
+	#ativosEstrutura { width:auto; height:400px; overflow:auto; border:1px solid gray; }
+    #ativosEstrutura, .ativosEstrutura input, .jstree-dnd-helper, #vakata-contextmenu { font-size:10px; font-family:Verdana; }
+	#text { margin-top:1px; }
+
+	#alog { font-size:9px !important; margin:5px; border:1px solid silver; }
+	</style>
+
+	 
+
+</head>
+<body >
+
+<div id="corpo">
+
+   <div id="principal">
+	
+	  
+	<div id="ativosEstrutura" class="ativosEstrutura"></div>
+
+   </div>
+	
+	
+	
+ 
+</div>	
+<script type="text/javascript">
+ 
+$(function () {
+	
+    $("#ativosEstrutura").bind("loaded.jstree", function () {
+         $("#ativosEstrutura").jstree("open_all");
+
+    });
+	
+	$("#ativosEstrutura").jstree({ 
+		"xml_data" : {
+	
+        "ajax": {
+            "url" : "$context/ativosEstrutura.htm?pageAction=carregarEstruturaAtivo"
+	    }
+		
+       
+	},
+		"plugins" : [ "themes", "xml_data"]
+	});
+});
+
+
+
+</script>
+</body>
+</html>

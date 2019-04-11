@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:p="http://www.springframework.org/schema/p"
+xmlns:context="http://www.springframework.org/schema/context"
+xmlns:tx="http://www.springframework.org/schema/tx"
+xmlns:aop="http://www.springframework.org/schema/aop" 
+xmlns:mvc="http://www.springframework.org/schema/mvc"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-3.0.xsd
+http://www.springframework.org/schema/aop
+http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+
+
+
+<context:annotation-config/>
+
+<context:component-scan base-package="com.projtec.slingcontrol." scope-resolver="org.apache.click.extras.spring.PageScopeResolver" />
+
+<context:property-placeholder location="classpath:jdbc.properties"/>
+
+<aop:aspectj-autoproxy/>
+
+<tx:annotation-driven transaction-manager="transactionManager" />
+
+<!--<mvc:annotation-driven />-->
+
+
+	<!--Arquivos com os DAOS-->
+<import resource="DAOConfig.xml" />
+
+
+
+   
+   <!--  Objetos json --> 
+  <bean id="messageAdapter" class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+ 
+                <!-- Support JSON --> 
+                <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/>
+                
+            </list>
+        </property>
+    </bean>
+
+
+<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>
+
+<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"/>
+    
+    
+
+<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"
+p:driverClassName="${jdbc.driverClassName}"
+p:url="${jdbc.url}"
+p:username="${jdbc.username}"
+p:password="${jdbc.password}"/>
+
+<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" 
+p:dataSource-ref="dataSource"  >
+      
+</bean>
+
+</beans>
+
+
+
+
+
+
+

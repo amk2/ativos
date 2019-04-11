@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java.util.Map>
+    <java.lang.Object>
+     <java.lang.String>obterMovimentoAtivoPorID</java.lang.String> 
+  <java.lang.String>select movimento_ativo_id ,layout_id, demanda_id, tipo_movimento_ativo_id ,  movimento_ativo_dt_criacao  from movimento_ativo  where movimento_ativo_id=?</java.lang.String> 
+  </java.lang.Object>
+- <java.lang.Object>
+  <java.lang.String>adicionar</java.lang.String> 
+  <java.lang.String>insert into movimento_ativo( layout_id,demanda_id,tipo_movimento_ativo_id,movimento_ativo_dt_criacao)
+   values( ?,?,?, now())</java.lang.String> 
+  </java.lang.Object>
+- <java.lang.Object>
+  <java.lang.String>idAtual</java.lang.String> 
+  <java.lang.String>select currval('movimento_ativo_movimento_ativo_id_seq')</java.lang.String> 
+  </java.lang.Object>
+- <java.lang.Object>
+  <java.lang.String>excluir</java.lang.String> 
+  <java.lang.String>delete from movimento_ativo where movimento_ativo_id=?</java.lang.String> 
+  </java.lang.Object>
+- <java.lang.Object>
+  <java.lang.String>alterar</java.lang.String> 
+  <java.lang.String>update movimento_ativo set layout_id=?, demanda_id=? ,tipo_movimento_ativo_id=?  where movimento_ativo_id= ?</java.lang.String> 
+  </java.lang.Object>
+- <java.lang.Object>
+  <java.lang.String>pesquisar</java.lang.String> 
+  <java.lang.String>select  *  from movimento_ativo </java.lang.String> 
+   </java.lang.Object>
+    - <java.lang.Object>
+  <java.lang.String>obterTodos</java.lang.String> 
+  <java.lang.String>select movimento_ativo_id, layout_id,demanda_id , tipo_movimento_ativo_id,  movimento_ativo_dt_criacao   from movimento_ativo   </java.lang.String> 
+   </java.lang.Object>
+  
+   
+</java.util.Map>
+
+

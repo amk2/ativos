@@ -1,0 +1,1111 @@
+#-------------------------------
+#writeFormLogin - Utilizado na tela de login
+#------------------------------
+#macro( writeFormLogin $form )
+
+$form.startTag()
+
+<table  style="width: 100%;"  cellpadding="0" cellspacing="0" >
+	#foreach ($field in $form.fieldList)
+		#if (!$field.hidden)
+			<tr height="30">
+		 		#if ($field.required) 
+					<td class="lblCampo">$field.label</td>
+					<td>$field</td>
+				#end
+			</tr>
+		#end
+	#end
+</table>
+
+<br />
+#foreach ($button in $form.buttonList)
+	<p>$button</p>
+#end
+
+#if ($form.errorFields.size() > 0 )
+	<br>
+	<div class="msgErro">
+		#foreach ($field in $form.errorFields)
+			$field.error <br/>
+		#end 
+	</div>
+#end
+
+
+
+  ## Render buttons
+  
+ ##<p align="right">
+ 
+    
+##    $form.fields.Pesquisar &nbsp;
+    
+##    $form.fields.Cancelar &nbsp;
+      
+ ##</p>
+
+
+$form.endTag()
+
+#end
+
+
+#---------------------------------------------------------------------
+#writeFormDadosRelatorio - Utilizado na tela de Relatorio
+#---------------------------------------------------------------------
+#macro( writeFormDadosRelatorio $form )
+
+$form.startTag()
+
+<table  style="width: 100%;"  cellpadding="0" cellspacing="0" >
+	#foreach ($field in $form.fieldList)
+		#if (!$field.hidden)
+			<tr height="30">
+		 		#if ($field.required) 
+					<td class="lblCampo">$field.label</td>
+					<td>$field</td>
+				#end
+			</tr>
+		#end
+	#end
+</table>
+
+<br />
+#foreach ($button in $form.buttonList)
+	<p>$button</p>
+#end
+
+#if ($form.errorFields.size() > 0 )
+	<br>
+	<div class="msgErro">
+		#foreach ($field in $form.errorFields)
+			$field.error <br/>
+		#end 
+	</div>
+#end
+
+$form.endTag()
+
+#end
+
+
+#*********************************
+ * Write drop down JavaScrip menu
+ *********************************#
+
+#macro( writeMenu $rootMenu )
+
+
+  <ul id="menu_dropdown" class="menubar">
+    $rootMenu      
+  </ul>  
+
+#end
+
+
+#*********************
+ * Write generic form
+ *********************#
+
+#macro( writeFormCrud $form )
+
+#if($mensagemErro && $mensagemErro ne "" )  
+	<div id="panelMensagemErro" style="color:red; font-size:10pt; border: red 1px solid; width:99%; text-align: center; height: 20px; font-weight: bold;" >
+		<p> $mensagemErro </p>
+	</div>
+#end
+
+#if($mensagemSucesso && $mensagemSucesso ne "" )  
+	<div id="panelMensagemSucesso" style="color:blue; font-size:10pt; border: blue 1px solid; width:99%; text-align: center; height: 20px; font-weight: bold;" >
+		<p> $mensagemSucesso </p>
+	</div>
+#end
+
+$form.addStyleClass("form")
+   
+$form.startTag()	
+
+<table  style="width: 100%;"  cellpadding="0" cellspacing="0" >
+
+
+ ## Render visible fields
+ #foreach ($field in $form.fieldList)
+ 
+  #if (!$field.hidden)
+   #if (!$field.valid) 
+   <tr>
+    <td>&nbsp;</td>
+    <td style="color: red;" align="left"> $field.error </td>
+   </tr>
+   #end
+
+   <tr>
+    <td align="right"> 
+    #if ($field.required) 
+     <span style="font-weight: 700;">$field.label</span>:
+    ##else
+     ##$field.label xxx:
+    #end
+    </td> 
+    <td> $field </td>
+   </tr>
+  #end
+ #end
+ 
+ <tr><td>&nbsp;</td></tr>
+		
+</table>
+  ## Render buttons
+  
+ <p align="right">
+ 
+    $form.fields.Salvar &nbsp;
+    
+    $form.fields.Pesquisar &nbsp;
+    
+    $form.fields.Cancelar &nbsp;
+      
+##   #foreach ($button in $form.buttonList)
+##    $button &nbsp;
+##   #end
+ </p>
+ 
+$form.endTag()
+
+#end
+
+
+
+#macro( writeFormNovo $form )
+
+ <ul>
+  
+        #foreach ($field in $form.errorFields)
+             <li><a  href="javascript:$field.focusJavaScript" class="error" >$field.error   </li> 
+        #end 
+ 
+ </ul>
+   
+$form.startTag()
+
+ <table  style="width: 100%;" >
+ 
+
+
+ 
+  
+  
+ #foreach ($field in $form.fieldList)
+   #if (!$field.hidden)
+     #if (!$field.valid)
+     <tr>
+       <td colspan="2"> $field.error </td>
+     </tr>
+     #end
+
+   <tr>
+     <td> $field.label: </td><td> $field </td>
+   </tr>
+   #end
+ #end
+
+  <tr>
+    <td colspan="2">
+    #foreach ($button in $form.buttonList)
+      $button &nbsp;
+    #end
+    </td>
+  </tr>
+
+ </table>
+
+ $form.endTag()
+
+
+ 
+#end
+
+
+
+#*********************
+ * Write generic form
+ *********************#
+
+#macro( writeFormCrudDinamico $form )
+
+$form.addStyleClass("form")
+
+#if ($form.errorFields.size()  > 0 )
+<ul class="error">
+  
+        #foreach ($field in $form.errorFields)
+              <li class="error"><a  href="javascript:$field.focusJavaScript" class="error" >$field.error   </li>
+        #end 
+ 
+ </ul>
+#end
+   
+$form.startTag()	
+
+
+<table  style="width: 100%;" cellpadding="0" cellspacing="0" >
+
+
+ ## Render visible fields
+ #foreach ($field in $form.fieldList)
+
+  #if (!$field.hidden)
+   #if (!$field.valid) 
+   <tr>
+    <td>&nbsp;</td>
+    <td style="color: red;" align="left"> $field.error </td>
+   </tr>
+   #end
+
+   <tr>
+    <td align="right"> 
+    #if ($field.required) 
+     <span style="font-weight: 700;">$field.label</span>:
+    ##else
+     ##$field.label xxx:
+    #end
+    </td> 
+    <td> $field </td>
+   </tr>
+  #end
+ #end
+ 
+ <tr><td>&nbsp;</td></tr>
+		
+</table>
+
+  
+ <p align="right">
+      
+   #foreach ($button in $form.buttonList)
+    $button &nbsp;
+   #end
+ </p>
+ 
+$form.endTag()
+
+#end
+
+
+
+#*********************
+ * Write Formulario de Pesquisa
+ *********************#
+
+#macro( writeFormPesquisa $form )
+
+
+
+
+$form.addStyleClass("form")
+$form.startTag()	
+
+<table  style="width: 100%;"  cellpadding="0" cellspacing="0" >
+	## Render visible fields
+	#foreach ($field in $form.fieldList)
+ 		#if (!$field.hidden)
+			#if (!$field.valid) 
+				<tr>
+					<td>&nbsp;</td>
+					<td style="color: red;" align="left">$field.error</td>
+				</tr>
+			#end
+
+			<tr>
+				<td align="right"> 
+					#if ($field.required) 
+						<span style="font-weight: 700;">$field.label</span>:
+					##else
+						##$field.label xxx:
+					#end
+				</td> 
+				<td>$field</td>
+			</tr>
+		#end
+	#end
+
+</table>
+
+## Render buttons
+##<p align="right">    
+##	$form.fields.pesquisarBt &nbsp;
+##	#foreach ($button in $form.buttonList)
+##		$button &nbsp;
+##	#end
+##</p>
+ 
+$form.endTag()
+
+#end
+
+
+
+#*********************
+ * Write  Form Ativos
+ *********************#
+
+#macro( writeFormAtivos $form )
+
+$form.addStyleClass("form")
+
+   
+$form.startTag()	
+
+
+<table  style="width: 100%;" cellpadding="0" cellspacing="0" >
+
+
+ ## Render visible fields
+ #foreach ($field in $form.fieldList)
+
+  #if (!$field.hidden)
+   #if (!$field.valid) 
+   <tr>
+    <td style="color: red;" align="left"> $field.error </td>
+   </tr>
+   #end
+
+   <tr>
+
+    <td>
+	    #if ($field.required) 
+	     <span style="font-weight: 700;">$field.label</span>:
+	    ##else
+	     ##$field.label xxx:
+	    #end
+    </td> 
+    <td> $field </td>
+   </tr>
+  #end
+ #end
+ 
+  #if (!$form.fields.Salvar.disabled)
+    <tr><td>&nbsp;</td></tr>
+    <tr>
+  	  <td colspan="2" style=" border-top:  1px solid #FFFFFF;border-bottom: 1px solid #FFFFFF;">
+  	  
+  	  	  <a id="pesquisarAtivos" title="Pesquisar Ativos" href="$context/pesquisarAtivos.htm">
+  	  	  	Pesquisar Ativos
+  	  	  </a>	
+  	  	  
+  	  	  <br/>
+  	  	  
+   		  <div id="listaAtivos">  </div>
+   		  
+  	  </td>
+    </tr>
+  #end
+  
+		
+</table>
+  ## Render buttons
+  <br>
+ <p align="right">
+ 
+     $form.fields.Salvar &nbsp;
+    
+     $form.fields.Pesquisar &nbsp;
+    
+     $form.fields.Cancelar &nbsp;
+      
+##   #foreach ($button in $form.buttonList)
+##    $button &nbsp;
+##   #end
+ </p>
+ 
+$form.endTag()
+
+#end
+
+#*********************
+ * Write  Form Demandas
+ *********************#
+
+#macro( writeFormDemandas $form )
+
+$form.addStyleClass("form")
+
+   
+$form.startTag()	
+
+
+<table  style="width: 100%;" cellpadding="0" cellspacing="0" >
+
+
+ ## Render visible fields
+ #foreach ($field in $form.fieldList)
+
+  #if (!$field.hidden)
+   #if (!$field.valid) 
+   <tr>
+    <td>&nbsp;</td>
+    <td style="color: red;" align="left"> $field.error </td>
+   </tr>
+   #end
+
+   <tr>
+    <td align="right"> 
+    #if ($field.required) 
+     <span style="font-weight: 700;">$field.label</span>:
+    ##else
+     ##$field.label xxx:
+    #end
+    </td> 
+    <td> $field </td>
+   </tr>
+  #end
+ #end
+ 
+ <tr><td>&nbsp;</td></tr> 
+   <tr><td>&nbsp;</td></tr>  
+  <tr><td colspan="2" style=" border-top:  1px solid #FFFFFF;border-bottom: 1px solid #FFFFFF;">
+  
+  
+ 
+  
+  <fieldset id="demandasForm_Dependencia" >
+    <legend id="demandasForm_MovimentoAtivo-legend">Depend&ecirc;ncia</legend>
+    	
+        <a id="pesquisarDemandas" title="Pesquisar Demandas" href="demandasPesquisa.htm?exibirSelecao=true"> 
+        	<img src="$context/resources/images/lupa.png" />
+        </a>
+        <a id="dependenciaDemanda"></a>
+		
+		#if ($demandaDependencia ) 
+		            Demanda: $demandaDependencia.id 
+		                $demandaDependencia.layout.nome
+		                $demandaDependencia.statusDemanda.descricao 
+	
+		         <a href='$context/detalhesDemanda.htm?demanda=$demandaDependencia.id'  id='detalheDem'  title='Detalhes da Demanda' > [+] </a>
+		        
+		#end 
+		
+   </fieldset>
+   
+   <div id="listaHiddenItensDemanda"  style="display: none" > </div>
+   
+  
+  <div id="panelDemandasFormMovimentoAtivo" >
+  
+   <fieldset id="demandasForm_ListaItensDemanda" >
+    <legend id="demandasForm_ListaItensDemanda-legend">Lista de Itens da Demanda</legend>          
+		
+			  <a id="pesquisarAtivosMovimentoAtivo" title="Adicionar Ativos" 
+			  href="$context/itensAtivosPesquisa.htm?exibirSelecao=true&exibirSelecaoMultiplo=true">Adicionar Itens na Demanda</a>	
+			  
+			   #foreach ($demItem in $listaItensDemanda)
+          
+	             <p>
+	               <!-- $demItem -->  $demItem.itemAtivos.identificacao | $demItem.itemAtivos.itensAtivosId   
+	                  	<br/>
+	                  	Local do Item  :  $demItem.itemAtivos.local.nome 
+	                    <br/>
+	                    Origem : <input type="text"  id=" $demItem.itemAtivos.itensAtivosId"  value="$demItem.localOrigem.id">
+	                    Destino : <input type="text"  id=" $demItem.itemAtivos.itensAtivosId"  value="">   
+	                   
+	             </p>
+	       
+               #end 
+			
+   </fieldset>
+   
+   
+   
+  
+  </div>
+  
+  </td></tr>
+  
+		
+</table>
+  ## Render buttons
+  <br>
+ <p align="right">
+ 
+   $form.fields.Salvar &nbsp;
+    
+     ##$form.fields.Pesquisar &nbsp;
+    
+    $form.fields.Cancelar &nbsp;
+      
+##   #foreach ($button in $form.buttonList)
+##    $button &nbsp;
+##   #end
+ </p>
+ 
+$form.endTag()
+
+#end
+
+
+
+
+#*********************
+ * Write  Form Demandas Dados 
+ *********************#
+
+#macro( writeFormDadosDemandas $form )
+
+$form.addStyleClass("form")
+
+$form.startTag()	
+
+
+<table  style="width: 100%;"  cellpadding="0" cellspacing="0" >
+
+ ## Render visible fields
+ #foreach ($field in $form.fieldList)
+
+  #if (!$field.hidden)
+   #if (!$field.valid) 
+   <tr>
+    <td>&nbsp;</td>
+    <td style="color: red;" align="left"> $field.error </td>
+   </tr>
+   #end
+
+   <tr>
+    <td align="right"> 
+    #if ($field.required) 
+     <span style="font-weight: 700;">$field.label</span>:
+    ##else
+     ##$field.label xxx:
+    #end
+    </td> 
+    <td> $field </td>
+   </tr>
+  #end
+ #end
+  <tr><td colspan="2" style=" border-top:  1px solid #FFFFFF;border-bottom: 1px solid #FFFFFF;"> 
+ 
+  
+  <fieldset id="demandasForm_Dependencia" >
+    <legend id="demandasForm_MovimentoAtivo-legend">Depend&ecirc;ncia</legend>
+    	
+        <a id="pesquisarDemandas" title="Pesquisar Demandas" href="$context/pesquisarDemandas.htm"> 
+        	<img src="$context/resources/images/lupa.png" />
+        </a>
+        <a id="dependenciaDemanda"></a>
+		
+		#if ($demandaDependencia ) 
+		            Demanda: $demandaDependencia.id 
+		                $demandaDependencia.layout.nome
+		                $demandaDependencia.statusDemanda.descricao 
+	
+		         <a href='$context/detalhesDemanda.htm?demanda=$demandaDependencia.id'  id='detalheDem'  title='Detalhes da Demanda' > [+] </a>
+		        
+		#end 
+		
+   </fieldset>
+  
+  </td></tr>
+
+  
+		
+</table>
+  ## Render buttons
+  <br>
+ <p align="right">
+ 
+     $form.fields.next &nbsp;
+    
+     ##$form.fields.Pesquisar &nbsp;
+    
+     $form.fields.Cancelar &nbsp;
+      
+
+$form.endTag()
+
+#end
+
+
+#----------------------------------------
+#*********************
+ * Write  Form Demandas Itens
+ *********************#
+
+#macro( writeFormDemandasItens $form )
+
+$form.addStyleClass("form")
+
+   
+$form.startTag()	
+
+
+<table   style="width: 100%;" cellpadding="0" cellspacing="0" >
+
+
+ ## Render visible fields
+ #foreach ($field in $form.fieldList)
+
+  #if (!$field.hidden)
+   #if (!$field.valid) 
+   <tr>
+    <td>&nbsp;</td>
+    <td style="color: red;" align="left"> $field.error </td>
+   </tr>
+   #end
+
+   <tr>
+    <td align="right"> 
+    #if ($field.required) 
+     <span style="font-weight: 700;">$field.label</span>:
+    ##else
+     ##$field.label xxx:
+    #end
+    </td> 
+    <td> $field </td>
+   </tr>
+  #end
+ #end
+ 
+ <tr><td>&nbsp;</td></tr> 
+ <tr><td>&nbsp;</td></tr>  
+ <tr><td colspan="2" style=" border-top:  1px solid #FFFFFF;border-bottom: 1px solid #FFFFFF;">
+  
+ 
+  
+ <div id="panelDemandasFormMovimentoAtivo" style="display: none" >
+  
+ <fieldset id="demandasForm_MovimentoAtivo" >
+    <legend id="demandasForm_MovimentoAtivo-legend">Movimento de Ativos</legend>
+			  <div id="listaDemandasMovimentoAtivo">  
+			  </div>
+			  <a id="pesquisarAtivosMovimentoAtivo" title="Adicionar Ativos" 
+			  href="$context/pesquisarItens.htm">Adicionar Ativos</a>	
+			
+ </fieldset>
+  
+  </div>
+  
+  <div id="panelDemandasFormEntradaAtivo" style="display: none" >
+  
+    <fieldset id="demandasForm_EntradaAtivo"  >
+      <legend id="demandasForm_EntradaAtivo-legend">Entrada de Ativos</legend>
+		 <div id="listaDemandasEntradaAtivo"> 
+		 </div>
+		 <a id="pesquisarAtivosEntrada" title="Adicionar Ativos" 
+			  href="$context/entradaAtivos.htm">Adicionar Ativos</a>	
+		 
+   </fieldset>
+  </div>
+  </td></tr>
+  
+		
+</table>
+  ## Render buttons
+  <br>
+ <p align="right">
+ 
+    $form.fields.Salvar &nbsp;
+    
+     ##$form.fields.Pesquisar &nbsp;
+    
+    $form.fields.Cancelar &nbsp;
+      
+##   #foreach ($button in $form.buttonList)
+##    $button &nbsp;
+##   #end
+ </p>
+ 
+$form.endTag()
+
+#end
+
+#-------------------------------------------
+
+#-------------------------------
+#writeFormPesquisaDemandaMov - utilizado na tela de movimento ativos para pesquisar demandas
+#------------------------------
+#macro( writeFormPesquisaDemandaMov $form )
+
+$form.addStyleClass("form")
+
+   
+$form.startTag()	
+
+
+<table  style="width: 100%;"  cellpadding="0" cellspacing="0" >
+
+
+ ## Render visible fields
+ #foreach ($field in $form.fieldList)
+
+  #if (!$field.hidden)
+   #if (!$field.valid) 
+   <tr>
+    <td>&nbsp;</td>
+    <td style="color: red;" align="left"> $field.error </td>
+   </tr>
+   #end
+
+   <tr>
+    <td align="right"> 
+    #if ($field.required) 
+     <span style="font-weight: 700;">$field.label</span>:
+    ##else
+     ##$field.label xxx:
+    #end
+    </td> 
+    <td> $field </td>
+   </tr>
+  #end
+ #end
+ 
+ <tr><td>&nbsp;</td></tr>
+		
+</table>
+  ## Render buttons
+  
+ <p align="right">    
+    $form.fields.Pesquisar &nbsp;
+    $form.fields.Cancelar &nbsp;
+ </p>
+ 
+$form.endTag()
+
+#end
+
+
+#-------------------------------
+#writeFormConsultaEstoque
+#------------------------------
+#macro( writeFormConsultaEstoque $form )
+
+$form.addStyleClass("form")
+
+   
+$form.startTag()	
+
+
+<table  style="width: 100%;"  cellpadding="0" cellspacing="0" >
+
+
+ ## Render visible fields
+ #foreach ($field in $form.fieldList)
+
+  #if (!$field.hidden)
+   #if (!$field.valid) 
+   <tr>
+    <td>&nbsp;</td>
+    <td style="color: red;" align="left"> $field.error </td>
+   </tr>
+   #end
+
+   <tr>
+    <td align="right"> 
+    #if ($field.required) 
+     <span style="font-weight: 700;">$field.label</span>:
+    ##else
+     ##$field.label xxx:
+    #end
+    </td> 
+    <td> $field </td>
+   </tr>
+  #end
+ #end
+ 
+ <!--
+ <tr><td>&nbsp;</td></tr>
+ <tr><td colspan="2" style=" border-top:  1px solid #FFFFFF;border-bottom: 1px solid #FFFFFF;">
+ 	<a id="pesquisarAtivos" title="Pesquisar Ativos" href="$context/pesquisarAtivos.htm?a=consultarEstoque">
+		<img src='resources/images/lupa.png' /> 	
+	</a>	
+ </td></tr>
+-->	
+</table>
+  ## Render buttons
+  
+ <p align="right">    
+    $form.fields.Pesquisar &nbsp;
+    $form.fields.Cancelar &nbsp;
+ </p>
+ 
+$form.endTag()
+
+#end
+
+
+
+#-------------------------------
+#writeFormFinalizarDemanda
+#------------------------------
+#macro( writeFormFinalizarDemanda $form )
+
+
+
+$form.startTag()
+
+<table  style="width: 100%;"  cellpadding="0" cellspacing="0" >
+	#foreach ($field in $form.fieldList)
+		#if (!$field.hidden)
+			<tr height="30">
+		 		#if ($field.required) 
+					<td class="lblCampo">$field.label</td>
+					<td>$field</td>
+				#end
+			</tr>
+		#end
+	#end
+</table>
+
+<br />
+
+<p align="right">
+#foreach ($button in $form.buttonList)
+	$button &nbsp;
+#end
+</p>
+
+
+#if ($form.errorFields.size() > 0 )
+	<br>
+	<div class="msgErro">
+		#foreach ($field in $form.errorFields)
+			$field.error <br/>
+		#end 
+	</div>
+#end
+
+$form.endTag()
+
+
+#end
+
+
+
+
+#-------------------------------
+#writeFormMovimentoAtivoDemanda - utilizado na tela de movimento ativos para executar demandas 
+#------------------------------
+#macro( writeFormMovimentoAtivoDemanda $form )
+
+$form.addStyleClass("form")
+
+   
+$form.startTag()	
+
+
+<table  style="width: 100%;"  cellpadding="0" cellspacing="0" >
+
+
+ ## Render visible fields
+ #foreach ($field in $form.fieldList)
+
+  #if (!$field.hidden)
+   #if (!$field.valid) 
+   <tr>
+    <td>&nbsp;</td>
+    <td style="color: red;" align="left"> $field.error </td>
+   </tr>
+   #end
+
+   <tr>
+    <td align="right"> 
+    #if ($field.required) 
+     <span style="font-weight: 700;">$field.label</span>:
+    ##else
+     ##$field.label xxx:
+    #end
+    </td> 
+    <td> $field </td>
+   </tr>
+  #end
+ #end
+ 
+ <tr><td>&nbsp;</td></tr>
+		
+</table>
+  ## Render buttons
+  
+ <p align="right">    
+    $form.fields.Salvar &nbsp;
+    $form.fields.Fechar &nbsp;
+ </p>
+ 
+$form.endTag()
+
+#end
+
+#*********************
+ * Write Form Pesquisar Demandas 
+ *********************#
+
+#macro( writeFormPesquisarDemandas $form )
+
+$form.addStyleClass("form")
+
+   
+$form.startTag()	
+
+
+<table   style="width: 100%;"  cellpadding="0" cellspacing="0" >
+
+
+ ## Render visible fields
+ #foreach ($field in $form.fieldList)
+
+  #if (!$field.hidden)
+   #if (!$field.valid) 
+   <tr>
+    <td>&nbsp;</td>
+    <td style="color: red;" align="left"> $field.error </td>
+   </tr>
+   #end
+
+   <tr>
+    <td align="right"> 
+    #if ($field.required) 
+     <span style="font-weight: 700;">$field.label</span>:
+    ##else
+     ##$field.label xxx:
+    #end
+    </td> 
+    <td> $field </td>
+   </tr>
+  #end
+ #end
+ 
+ <tr><td>&nbsp;</td></tr>
+		
+</table>
+  
+$form.endTag()
+
+#end
+
+
+
+#-------------------------------
+#writeFormPesquisarItensAtivos - Pesquisa de itens de ativo
+#------------------------------
+#macro( writeFormPesquisarItensAtivos $form )
+
+$form.addStyleClass("form")
+
+   
+$form.startTag()	
+
+
+<table  style="width: 100%;"  cellpadding="0" cellspacing="0" >
+
+
+ ## Render visible fields
+ #foreach ($field in $form.fieldList)
+
+  #if (!$field.hidden)
+   #if (!$field.valid) 
+   <tr>
+    <td>&nbsp;</td>
+    <td style="color: red;" align="left"> $field.error </td>
+   </tr>
+   #end
+
+   <tr>
+    <td align="right">
+  
+     #if ($field.id.contains("_DE")) 
+        $field.id
+     #end
+    </td> 
+    <td> $field </td>
+   </tr>
+  #end
+ #end
+ 
+ <tr><td>&nbsp; </td></tr>
+		
+</table>
+  ## Render buttons
+  
+ <p align="right">    
+    $form.fields.Pesquisar &nbsp;
+    $form.fields.Cancelar &nbsp;
+ </p>
+ 
+$form.endTag()
+
+#end
+
+
+#-------------------------------
+#writeFormLocaisSeletor
+#------------------------------
+#macro( writeFormLocaisSeletor $form )
+$form.addStyleClass("form")
+$form.startTag()	
+<table  style="width: 100%;"  cellpadding="0" cellspacing="0" >
+ ## Render visible fields
+ #foreach ($field in $form.fieldList)
+  #if (!$field.hidden)
+   #if (!$field.valid) 
+   <tr>
+    <td>&nbsp;</td>
+    <td style="color: red;" align="left"> $field.error </td>
+   </tr>
+   #end
+   <tr>
+    <td align="right">
+     #if ($field.id.contains("_DE")) 
+        $field.id
+     #end
+    </td> 
+    <td> $field </td>
+   </tr>
+  #end
+ #end
+ <tr><td>&nbsp; </td></tr>	
+</table>
+$form.endTag()
+#end
+
+
+#*********************
+ * Write Cadastro de Itens
+ *********************#
+
+#macro( writeCadastroItens $form )
+
+$form.addStyleClass("form")
+$form.startTag()	
+
+<table  style="width: 100%;"  cellpadding="0" cellspacing="0" >
+	## Render visible fields
+	#foreach ($field in $form.fieldList)
+ 		#if (!$field.hidden)
+			#if (!$field.valid) 
+				<tr>
+					<td>&nbsp;</td>
+					<td style="color: red;" align="left">$field.error</td>
+				</tr>
+			#end
+
+			<tr>
+				<td align="right"> 
+					#if ($field.required) 
+						<span style="font-weight: 700;">$field.label</span>:
+					##else
+						##$field.label xxx:
+					#end
+				</td> 
+				<td>$field</td>
+			</tr>
+		#end
+	#end
+
+</table>
+
+## Render buttons
+<p align="right">    
+	$form.fields.Pesquisar
+</p>
+ 
+$form.endTag()
+
+#end

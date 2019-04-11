@@ -1,0 +1,50 @@
+
+
+ <div align="center">  
+    
+    #foreach( $key in $mapEstoqueView.keySet() )
+       
+       <table   style="width: 99.4%;"  class="blue2">
+             <thead>
+        #set( $grupo = $mapEstoqueView.get($key))
+        <tr>         
+          <th colspan='$grupo.nomes.size()'   >$mapEstoqueView.get($key).titulo</th>
+        </tr>        
+        <tr> 
+    
+        #foreach ($keyNm in $grupo.nomes.keySet())
+          
+             <th >
+               <!-- $keyNm --> $grupo.nomes.get($keyNm)</li> 
+             </th>
+       
+        #end 
+       
+        </tr> 
+        </thead>  
+        <tbody>    
+        #foreach ($linha in $grupo.linhasValores)
+         <tr>   
+             
+            #foreach ($keyNm in $grupo.nomes.keySet())
+          
+             <td>
+               <!-- $keyNm --> $linha.get($keyNm)
+             </td>
+       
+               #end               
+              
+         </tr> 
+        #end  
+          <tr>
+         
+          <td colspan='$grupo.nomes.size()' >   Total de itens: $mapEstoqueView.get($key).total</td>
+        </tr>  
+         </tbody>
+       
+       </table> 
+      <br/>
+           
+     #end
+
+</div>

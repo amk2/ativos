@@ -1,0 +1,75 @@
+<head>
+
+</head>
+<body>
+	
+	
+<div align="center">  
+   <h1 style="color:#FF0000;text-align:center"> 
+      Esta demanda n&atilde;o poder&aacute; ser finalizada por que a 
+      posi&ccedil;&atilde;o atual do item &eacute; diferente da posi&ccedil;&atilde;o atual de destino solicitada.
+   </h1>
+   <br>
+   <br>
+   <br>
+    <div id="detalhes"  align="left">
+	   <b>Demanda:</b> $objDemanda.layout.nome <br />
+	   <b>Status:</b> $objDemanda.statusDemanda.descricao <br />
+	   <b>Tipo:</b> $objDemanda.tipoDemanda.descricao<br />
+	   <b>Layout:</b> $objDemanda.layout.nome<br />
+	</div>
+    <br>
+    <br>
+    <br>    
+    #foreach( $key in $mapListGridView.keySet() )
+       
+       <table   style="width: 99.4%;"  class="blue2">
+             <thead>
+        #set( $grupo = $mapListGridView.get($key))
+        <tr>         
+          <th colspan='$grupo.nomes.size()'   >$mapListGridView.get($key).titulo</th>
+        </tr>        
+        <tr> 
+    
+        #foreach ($keyNm in $grupo.nomes.keySet())
+          
+             <th >
+               <!-- $keyNm --> $grupo.nomes.get($keyNm)</li> 
+             </th>
+       
+        #end 
+       
+        </tr> 
+        </thead>  
+        <tbody>    
+        #foreach ($linha in $grupo.linhasValores)
+         <tr>   
+             
+            #foreach ($keyNm in $grupo.nomes.keySet())
+          
+             <td>
+               <!-- $keyNm --> #if ( $linha.get($keyNm) ) $linha.get($keyNm) #end
+             </td>
+       
+               #end               
+              
+         </tr> 
+         
+         
+           
+        #end  
+          <tr>
+         
+          <td colspan='$grupo.nomes.size()' > </td>
+        </tr>  
+         </tbody>
+       
+       </table> 
+      <br/>
+           
+     #end
+
+</div>
+	
+</body>	
+	
